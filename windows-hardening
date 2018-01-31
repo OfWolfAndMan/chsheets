@@ -1,0 +1,24 @@
+""" A set of features for hardening a windows 10 box.
+    A separate hardening guide for Windows server
+    2012/2016 will be provided in the file 'winserver
+    hardening'
+"""
+
+### TOOLS ###
+- Keepass: A historically secure password manager
+  https://keepass.info/
+
+- Avast: A free antivirus program
+  https://www.avast.com/en-us/mac
+
+- Veracrypt: A program to encrypt non-system partitions/drives
+  https://archive.codeplex.com/?p=veracrypt
+
+- Virtualbox: A free virtualization option
+  https://www.virtualbox.org/wiki/Downloads
+
+- Vmware Workstation: A more feature-rich (Non-free) virtualization option
+  https://www.vmware.com/products/workstation-pro.html
+
+- Simple DNSCrypt: A method of encrypting your DNS queries
+  https://github.com/bitbeans/SimpleDnsCrypt
