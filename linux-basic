@@ -1,0 +1,62 @@
+)) Caveats on cloning Linux VMs ((
+
+- Change IP if static
+- Change hostname resolution in /etc/hosts file
+- Change services as needed
+
+)) General Use ((
+
+#List all processes
+ps -aux
+
+#Backup things locally
+rsync {source} {destination}
+
+#Create a cronjob
+crontab -e
+
+)) Zip files ((
+
+#Create tar.gz file
+tar -czvf {output.tgz} {folder}
+
+#Extract tar.gz file
+tar -xzvf {input.tgz} {path}
+
+#Create zip files
+zip -r {output.zip} {folder}
+
+#Extract zip files
+unzip {input.zip} -d {folder}
+
+)) Networking ((
+
+#Get IPs and interfaces
+ifconfig
+
+#Display open ports with programs
+lsof -i -P
+
+#Display all network devices available
+lspci
+
+#Restart Network Interfaces
+- Debian: 
+  ip addr flush interface-name
+  systemctl restart networking.service
+
+)) Common file locations ((
+
+#Update hostname
+/etc/hostname
+
+#Update IP configuration
+/etc/network/interfaces
+
+#Modify hosts file
+/etc/hosts
+
+)) Useful Programs ((
+
+- Firejail: A useful sandboxing application
+  https://github.com/netblue30/firejail
