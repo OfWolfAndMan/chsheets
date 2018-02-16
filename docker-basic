@@ -1,0 +1,7 @@
+#Snapshot a container
+docker ps
+docker commit <container id> <snapshot name>
+docker run -t -i <snapshot name> <command in container>
+
+#Remove snapshot
+docker rmi <snapshot name>
