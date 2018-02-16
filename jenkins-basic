@@ -1,0 +1,4 @@
+#Access command line to get initial password
+docker ps
+docker exec -it <container id> bash
+cat /var/jenkins_home/secrets/initialAdminPassword
