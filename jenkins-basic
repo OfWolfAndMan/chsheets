@@ -14,8 +14,6 @@ docker ps
 docker exec -it <container id> bash
 cat /var/jenkins_home/secrets/initialAdminPassword
 
-#Stopping a docker instance
-docker stop <container id>
 
 ### TERMINOLOGY ###
 
