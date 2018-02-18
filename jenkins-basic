@@ -13,3 +13,26 @@ docker run \
 docker ps
 docker exec -it <container id> bash
 cat /var/jenkins_home/secrets/initialAdminPassword
+
+#Stopping a docker instance
+docker stop <container id>
+
+### TERMINOLOGY ###
+
+Master:
+- Primary, controlling system for a Jenkins instance
+- Has complete access to all Jenkins configurations and options
+- Not intended for running heavyweight tasks
+- Not recommended to run jobs in the master node
+
+Node:
+- Any system that can run Jenkins jobs
+- Covers both masters and agents
+
+Agent:
+- AKA a slave (Any non-master system)
+- Managed by the master system
+- Agents run on nodes
+
+Executor:
+- A slot to run a job in a node/agent

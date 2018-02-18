@@ -3,3 +3,12 @@ vagrant plugin install vagrant-scp
 
 #Copy file to vagrant guest (Loads to home directory)
 vagrant scp <local_file_or_dir> <vm_name>:<filename>
+
+#Startup Vagrant
+vagrant up
+
+#Gracefully shutdown Vagrant
+vagrant halt
+
+#Delete Vagrant VM
+vagrant destroy
