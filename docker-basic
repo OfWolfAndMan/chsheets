@@ -5,3 +5,9 @@ docker run -t -i <snapshot name> <command in container>
 
 #Remove snapshot
 docker rmi <snapshot name>
+
+#Rename docker container
+docker rename <current_name> <new_name>
+
+#Stopping a docker instance
+docker stop <container id>
