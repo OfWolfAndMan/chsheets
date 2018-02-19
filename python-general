@@ -1,0 +1,11 @@
+#Use the os module
+import os
+
+#Print directory
+os.getcwd
+
+#ls directory
+os.listdir('lower directory')
+
+#Change directory
+os.chdir('directory from top of hierarchy')
