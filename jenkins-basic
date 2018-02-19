@@ -34,3 +34,37 @@ Agent:
 
 Executor:
 - A slot to run a job in a node/agent
+
+Node Labels:
+- Identifies a specific node
+- Groups classes of nodes together
+- Identifies some characteristic of a node that is useful to know for processing
+
+### SIMPLE PIPELINE EXAMPLE ###
+#Jenkins DSL modeled after the Groovy framework
+
+node ('worker1') {
+	 
+	 stage('Source') { // for display purposes
+	  
+	  // Get some code from our Git repository
+
+	  git 'https://github.com/brentlaster/gradle-greetings.git'
+
+	  }
+}
+
+#'worker1': Name of the node
+#stage: Groups together individual settings, DSL commands, and logic
+#steps: NOT Groovy commands. 
+
+#Example of a parallel structure to designate mappings
+
+parallel (
+            win: { node ('win64'){
+             ...
+             }},
+            linux: { node ('ubuntu') {
+             ...
+             }},
+          )
