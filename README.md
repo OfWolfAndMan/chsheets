@@ -1,4 +1,4 @@
-# Version 0.3
+# Version 0.5
 Current cheatsheet listing:
 
 - Mac OS Hardening
@@ -9,6 +9,16 @@ Current cheatsheet listing:
 - Redteam Shell
 - Windows Hardening
 - F5 BIG-IP
+- Python
+- Python Regex
+- Ansible Networking
+
+## Future Development
+
+- Ansible
+- Python Network
+- Redteam Powershell
+- Linux Networking
 
 ## chsheets
 A bunch of cheat sheets, spanning from operating system specific security configurations, scripting references, red/blue team scripts, and other useful tidbits
