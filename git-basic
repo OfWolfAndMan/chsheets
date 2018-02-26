@@ -1,0 +1,45 @@
+# Clone an existing repository
+git clone [ssh/http/https]://<user>@<domain>.com/<repo.git>
+
+# Create a new local repository
+git init
+
+# Display changed files in working directory
+git status
+
+# Snapshots the file in preparation for versioning
+git add <file/folder/wildcard>
+
+# Deletes file from working directory and staged for deletion
+git rm <file>
+
+# Removes file from version control but locally preserved
+git rm --cached <file>
+
+# Add a message for the updates and commit
+git commit -m "<Message>"
+
+# Push to the master branch
+git push
+
+# 
+# Show previous commits (Time/author/commit message)
+git log
+
+# Show previous commits with changes
+git log -p
+
+# Show previous commits with changes to last x entries
+git log -p -<number of previous commits>
+
+# Show changes over time to a specified file
+git log -p <file>
+
+# Download changes and directly merge/integrate into the HEAD
+git pull <remote> <branch>
+
+# Mark the current commit with a tag
+git tag <tag name>
+
+# Unstages the file, but preserves content
+git reset <file>
