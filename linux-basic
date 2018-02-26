@@ -1,10 +1,10 @@
-)) Caveats on cloning Linux VMs ((
+### Caveats on cloning Linux VMs ###
 
 - Change IP if static
 - Change hostname resolution in /etc/hosts file
 - Change services as needed
 
-)) General Use ((
+### General Use ###
 
 #List all processes
 ps -aux
@@ -15,7 +15,7 @@ rsync {source} {destination}
 #Create a cronjob
 crontab -e
 
-)) Zip files ((
+### Zip files ###
 
 #Create tar.gz file
 tar -czvf {output.tgz} {folder}
@@ -29,23 +29,12 @@ zip -r {output.zip} {folder}
 #Extract zip files
 unzip {input.zip} -d {folder}
 
-)) Networking ((
+#Start a service at startup
+systemctl enable <service>
 
-#Get IPs and interfaces
-ifconfig
 
-#Display open ports with programs
-lsof -i -P
 
-#Display all network devices available
-lspci
-
-#Restart Network Interfaces
-- Debian: 
-  ip addr flush interface-name
-  systemctl restart networking.service
-
-)) Common file locations ((
+### Common file locations ###
 
 #Update hostname
 /etc/hostname
@@ -56,7 +45,26 @@ lspci
 #Modify hosts file
 /etc/hosts
 
-)) Useful Programs ((
+### Network Configuration ###
+
+#Get IPs and interfaces
+ifconfig
+
+#Restart daemon after changing IP settings
+/tc/init.d/networking restart
+
+#Display all network devices available
+lspci
+
+#Restart Network Interfaces
+- Debian: 
+  ip addr flush interface-name
+  systemctl restart networking.service
+
+#Display open ports with programs
+lsof -i -P
+
+### Useful Programs ###
 
 - Firejail: A useful sandboxing application
   https://github.com/netblue30/firejail

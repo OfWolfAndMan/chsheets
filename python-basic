@@ -1,11 +1,44 @@
-#Use the os module
+# Use the os module #
 import os
 
-#Print directory
-os.getcwd
+# Print directory #
+os.getcwd()
 
-#ls directory
+# ls directory #
 os.listdir('lower directory')
 
-#Change directory
-os.chdir('directory from top of hierarchy')
+# Change directory #
+os.chdir(<Top Hierarchy directory>)
+
+## Sort a list of dictionaries based on a common key ##
+row = [
+	{'fname': 'Bob', 'lname': 'Johnson', 'uid': 1001}
+	{'fname': 'Janette', 'lname': 'Valentine', 'uid': 1003}
+	{'fname': 'Ashley', 'lname': 'Madison', 'uid': 1002}
+] 
+
+from operator import itemgetter
+
+rows_by_fname = sorted(rows, key=itemgetter('fname'))
+rows_by_uid = sorted(rows, key=itemgetter('uid'))
+
+print(rows_by_fname)
+print(rows_by_uid)
+
+## Grouping records together based on a field ##
+rows = [
+	{'address': '5412 N CRAP', 'date': '05/07/2013'}
+	{'address': '432 E CARP', 'date': '01/12/2015'}
+	{'address': '291 JOHNSON AVE', 'date': '11/23/2014'}
+	{'address': '2490 JACKSON CIR', 'date': '02/24/2015'}
+]
+
+from operator import itemgetter
+from itertools import groupby
+
+rows.sort(key=itemgetter('date'))
+
+for date, items in groupby(rows, key=itemgetter('date')):
+	print(date)
+	for i in items:
+		print('   ', i)
