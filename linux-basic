@@ -1,4 +1,4 @@
-### Caveats on cloning Linux VMs ###
+### CAVEATS ON CLONING LINUX VMs ###
 
 - Change IP if static
 - Change hostname resolution in /etc/hosts file
@@ -15,7 +15,7 @@ rsync {source} {destination}
 #Create a cronjob
 crontab -e
 
-### Zip files ###
+### ZIP FILES ###
 
 #Create tar.gz file
 tar -czvf {output.tgz} {folder}
@@ -34,7 +34,7 @@ systemctl enable <service>
 
 
 
-### Common file locations ###
+### COMMON FILE LOCATIONS ###
 
 #Update hostname
 /etc/hostname
@@ -45,7 +45,7 @@ systemctl enable <service>
 #Modify hosts file
 /etc/hosts
 
-### Network Configuration ###
+### NETWORK ###
 
 #Get IPs and interfaces
 ifconfig
@@ -64,7 +64,26 @@ lspci
 #Display open ports with programs
 lsof -i -P
 
-### Useful Programs ###
+#Enable routing
+sysctl net.ipv4.conf.all.forwarding=1
+sysctl net.ipv6.conf.all.forwarding=1
+
+#Flush NAT rules
+iptables -t nat -F
+
+#Configure SNAT (Static IP)
+iptables -t nat -A POSTROUTING -o <Interface name> -j SNAT --to <Interface IP>
+
+#Configure SNAT (Dynamic IP)
+iptables -t nat -A POSTROUTING -o <Interface name> -j MASQUERADE
+
+#Configure DNAT (IP only)
+iptables -t nat -A PREROUTING -d <Original IP> -j DNAT --to-destination <New IP>
+
+#Configure DNAT (IP/port)
+iptables -t nat -A PREROUTING -p <TCP/UDP> -d <Original IP> --dport <Original Port> -j DNAT \ --to-destination <New IP>:<New port>
+
+### USEFUL PROGRAMS ###
 
 - Firejail: A useful sandboxing application
   https://github.com/netblue30/firejail
