@@ -7,3 +7,6 @@ curl ipinfo.io
 
 #Clone a website
 wget -r -nH $MY_URL
+
+#Start Ettercap GUI
+ettercap -G

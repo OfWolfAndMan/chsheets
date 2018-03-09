@@ -22,3 +22,5 @@
 
 - Simple DNSCrypt: A method of encrypting your DNS queries
   https://github.com/bitbeans/SimpleDnsCrypt
+
+- Proxifier: Can create a chain of proxies. Supports SOCKS protocol (4, 4a, 5)
