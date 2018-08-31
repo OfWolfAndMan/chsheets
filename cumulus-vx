@@ -1,5 +1,5 @@
 #Show interfaces
-net show interfaces
+net show interface
 
 #Enter quagga command line
 sudo vtysh
