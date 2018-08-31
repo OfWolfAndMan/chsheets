@@ -1,3 +1,7 @@
+#Install vmware Fusion/Workstation plugins (Requires license)
+vagrant plugin install vagrant-vmware-fusion
+vagrant plugin install vagrant-vmware-workstation
+
 #Install plugin for SCP
 vagrant plugin install vagrant-scp
 
