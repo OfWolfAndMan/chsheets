@@ -42,3 +42,23 @@ for date, items in groupby(rows, key=itemgetter('date')):
 	print(date)
 	for i in items:
 		print('   ', i)
+
+# Match text at the start or end of string #
+filename.startswith(<string/variable>)
+filename.endswith(<string/variable>)
+-------------------------------------------------------------------------------
+# Setting up tox
+##Primarily used to test projects in different versions of Python primarily
+pip install tox
+Should be run in the same directory as setup.py file
+
+## Specifying a platform
+[testenv]
+platform - linux2|darwin
+## Specify dependencies file
+deps =
+    -rrequirements.txt
+## Integrating pytest in the tox file
+commands =
+    py.test {posargs}
+-------------------------------------------------------------------------------
