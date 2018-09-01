@@ -1,73 +1,0 @@
-*   Trying 151.101.56.133...
-* TCP_NODELAY set
-* Connected to raw.githubusercontent.com (151.101.56.133) port 443 (#0)
-* ALPN, offering h2
-* ALPN, offering http/1.1
-* Cipher selection: ALL:!EXPORT:!EXPORT40:!EXPORT56:!aNULL:!LOW:!RC4:@STRENGTH
-* successfully set certificate verify locations:
-*   CAfile: /etc/ssl/cert.pem
-  CApath: none
-* TLSv1.2 (OUT), TLS handshake, Client hello (1):
-} [512 bytes data]
-* TLSv1.2 (IN), TLS handshake, Server hello (2):
-{ [108 bytes data]
-* TLSv1.2 (IN), TLS handshake, Certificate (11):
-{ [3182 bytes data]
-* TLSv1.2 (IN), TLS handshake, Server key exchange (12):
-{ [333 bytes data]
-* TLSv1.2 (IN), TLS handshake, Server finished (14):
-{ [4 bytes data]
-* TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
-} [70 bytes data]
-* TLSv1.2 (OUT), TLS change cipher, Client hello (1):
-} [1 bytes data]
-* TLSv1.2 (OUT), TLS handshake, Finished (20):
-} [16 bytes data]
-* TLSv1.2 (IN), TLS change cipher, Client hello (1):
-{ [1 bytes data]
-* TLSv1.2 (IN), TLS handshake, Finished (20):
-{ [16 bytes data]
-* SSL connection using TLSv1.2 / ECDHE-RSA-AES128-GCM-SHA256
-* ALPN, server accepted to use http/1.1
-* Server certificate:
-*  subject: C=US; ST=California; L=San Francisco; O=GitHub, Inc.; CN=www.github.com
-*  start date: Mar 23 00:00:00 2017 GMT
-*  expire date: May 13 12:00:00 2020 GMT
-*  subjectAltName: host "raw.githubusercontent.com" matched cert's "*.githubusercontent.com"
-*  issuer: C=US; O=DigiCert Inc; OU=www.digicert.com; CN=DigiCert SHA2 High Assurance Server CA
-*  SSL certificate verify ok.
-> GET /StevenBlack/hosts/master/alternates/fakenews/hosts HTTP/1.1
-> Host: raw.githubusercontent.com
-> User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0
-> Accept: */*
-> Referer: 
-> 
-< HTTP/1.1 200 OK
-< Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
-< Strict-Transport-Security: max-age=31536000
-< X-Content-Type-Options: nosniff
-< X-Frame-Options: deny
-< X-XSS-Protection: 1; mode=block
-< ETag: "e5718dcfd95e8428fdd15e12f0e1872af519b0ae"
-< Content-Type: text/plain; charset=utf-8
-< Cache-Control: max-age=300
-< X-Geo-Block-List:
-< X-GitHub-Request-Id: 1278:1290:1DF9FF:1F73C6:5B145A5B
-< Content-Length: 1605447
-< Accept-Ranges: bytes
-< Date: Sun, 03 Jun 2018 21:15:07 GMT
-< Via: 1.1 varnish
-< Connection: keep-alive
-< X-Served-By: cache-atl6231-ATL
-< X-Cache: MISS
-< X-Cache-Hits: 0
-< X-Timer: S1528060507.493979,VS0,VE35
-< Vary: Authorization,Accept-Encoding
-< Access-Control-Allow-Origin: *
-< X-Fastly-Request-ID: dd59983815dbb3d97ac4d426a717997283f17b91
-< Expires: Sun, 03 Jun 2018 21:20:07 GMT
-< Source-Age: 0
-< 
-{ [1917 bytes data]
-##                                                                         4.0%#######                                                                   10.2%###########                                                               16.3%################                                                          23.4%######################                                                    31.6%##############################                                            41.8%#################################                                         45.9%#####################################                                     52.0%###########################################                               60.2%##############################################                            65.3%#####################################################                     74.4%#############################################################             85.7%#####################################################################     95.9%######################################################################## 100.0%* Connection #0 to host raw.githubusercontent.com left intact
-
