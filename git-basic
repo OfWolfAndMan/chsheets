@@ -52,3 +52,6 @@ git config --global user.email "email@email.com"
 cat /home/<user>/.ssh/id_rsa.pub
 #Copy the SSH key
 #Add new SSH key
+
+#Fix permissions in a certain git repo (Used if accidentally pushing with sudo)
+sudo chown -R $(id -u):$(id -g) "$(git rev-parse --show-toplevel)/.git"
