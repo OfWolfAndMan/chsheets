@@ -58,3 +58,11 @@ EXPOSE <port> | <port>/<protocol>
 
 #
 CMD gunicorn -b 0.0.0.0:<port number> --access-logfile 
+
+#Exporting a container
+docker export <container_name> | gzip <container_export_name>.gz
+
+#Importing a container
+scp <container_export_name>.gz <docker_user>@<docker_ip>:/home/<docker_user>
+zcat <container_export_name>.gz | docker import - <container_name>
+docker run -i -t <container_name> /bin/bash
