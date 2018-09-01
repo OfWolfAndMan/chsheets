@@ -1,4 +1,4 @@
-### TRIGGERS ###
+### TRIGGERS ### ****************************************************
 
 #Triggers can be implemented in three ways
   # General Configuration of the Project
@@ -32,3 +32,9 @@
 
     # Example: Poll SCM periodically
     triggers { pollSCM(*/30 * * * *) }
+
+    # Example: Trigger builds remotely by 
+    # accessing a specific URL for the given
+    # job on the Jenkins system
+
+### USER INPUT ### ****************************************************
