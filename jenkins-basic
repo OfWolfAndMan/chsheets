@@ -44,13 +44,11 @@ Node Labels:
 #Jenkins DSL modeled after the Groovy framework
 
 node ('worker1') {
-	 
+  // The stage allows to group individual settings,
+  // DSL commands, and logic together
 	 stage('Source') { // for display purposes
-	  
 	  // Get some code from our Git repository
-
 	  git 'https://github.com/brentlaster/gradle-greetings.git'
-
 	  }
 }
 

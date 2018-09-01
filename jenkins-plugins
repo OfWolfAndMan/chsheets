@@ -1,0 +1,7 @@
+## Build Pipeline ##
+
+# Used to visualize pipeline in Jenkins
+    # Blue: Job hasn't run yet
+    # Yellow: Job in progress
+    # Green: Job completed successfully
+    # Red: Job failed
