@@ -1,0 +1,34 @@
+### TRIGGERS ###
+
+#Triggers can be implemented in three ways
+  # General Configuration of the Project
+
+  # Scripted Pipeline
+    # Example: Building a Project
+    # after other projects are built
+    properties([
+      pipelineTriggers([
+        upstream(
+          threshold: hudson.model.Result.SUCCESS,
+          upstreamProjects: 'Job1'
+        )
+      ])
+    ])
+
+    # Example: Build periodically
+    properties([pipelineTriggers([cron('0 9 * * 1-5')])])
+
+    # Example: Github Hook Trigger for GitSCM polling
+    # Used to trigger a build when git push initiated
+    properties([pipelineTriggers([githubPush()])])
+
+    # Example: Poll SCM periodically
+    properties([pipelineTriggers([pollSCM('*/30 * * * *')])])
+
+  # Declarative Pipeline
+
+    # Example: Build periodically
+    triggers { cron(0 9 * * 1-5) 
+
+    # Example: Poll SCM periodically
+    triggers { pollSCM(*/30 * * * *) }

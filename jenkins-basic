@@ -45,11 +45,17 @@ Node Labels:
 
 node ('worker1') {
   // The stage allows to group individual settings,
-  // DSL commands, and logic together
+  // DSL commands, and logic together.
+  // Stage names arbitrary
 	 stage('Source') { // for display purposes
 	  // Get some code from our Git repository
 	  git 'https://github.com/brentlaster/gradle-greetings.git'
 	  }
+
+    stage('Build') {
+      //Run a shell script
+      sh myshellscript.sh
+    }
 }
 
 #'worker1': Name of the node
@@ -66,3 +72,4 @@ parallel (
              ...
              }},
           )
+      
