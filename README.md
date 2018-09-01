@@ -1,4 +1,4 @@
-# Version 0.5
+# Version 0.7
 Current cheatsheet listing:
 
 - Mac OS Hardening
@@ -11,6 +11,8 @@ Current cheatsheet listing:
 - F5 BIG-IP
 - Python
 - Python Regex
+- Python Big Data
+- Pandas
 - Ansible Networking
 
 ## Future Development
