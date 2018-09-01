@@ -38,3 +38,26 @@
     # job on the Jenkins system
 
 ### USER INPUT ### ****************************************************
+
+# Prompt user with message
+input 'Continue with the final stage?'
+
+# Give the user a variety of choices
+def choice = input message: '<message>', 
+ parameters: [choice(choices: "choice1\nchoice2\nchoice3\nchoice4\n",
+ description: 'Choose one of the following options', name: 'Options')]
+
+# Boolean
+def answer = input message: '<message>', 
+ parameters: [booleanParam(defaultValue: true, 
+ description: 'Prerelease setting', name: 'prerelease')]
+
+# Choosing a file to use with the pipeline
+def selectedFile = input message: '<message>', 
+ parameters: [file(description: 'Choose file to upload', name: 'local')]
+
+# Multiline string
+def lines = input message: '<message>', 
+ parameters: [text(defaultValue: '''line 1
+ line 2
+ line 3''', description: '', name: 'Input Lines')]
