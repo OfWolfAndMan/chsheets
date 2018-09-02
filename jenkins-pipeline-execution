@@ -1,5 +1,10 @@
 ### TRIGGERS ### ****************************************************
 
+  # Pull strategy
+    * Reaches out to see if changes in the code
+  # Push strategy
+    * Something else notifies Jenkins the code changed 
+
 #Triggers can be implemented in three ways
   # General Configuration of the Project
 
@@ -36,6 +41,12 @@
     # Example: Trigger builds remotely by 
     # accessing a specific URL for the given
     # job on the Jenkins system
+
+  # Freestyle project
+    # Check "Github hook trigger for GITScm polling"
+    # Global config should have auth configured
+    # Under the settings of the repo, the webhook
+    # will show up once the project is created
 
 ### USER INPUT ### ****************************************************
 
@@ -200,3 +211,34 @@ finally {
         }
     }
 } // end pipeline
+
+# Sending an email
+pipeline {
+  agent any
+  stages {
+   ...
+  }
+  post {
+    always {
+       mail to: 'blob@gmail.org',
+          subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+          body: "${env.BUILD_URL} has result ${currentBuild.result}"
+    }
+  }
+}
+  # SMTP server, default user email suffix, SMTP
+  # authentication defined in global settings
+
+# Send email with attached logs
+  emailext attachLog: true, body:
+   """<p>EXECUTED: Job <b>\'${env.JOB_NAME}:${env.BUILD_NUMBER})\'
+   </b></p><p>View console output at "<a href="${env.BUILD_URL}"> 
+   ${env.JOB_NAME}:${env.BUILD_NUMBER}</a>"</p> 
+     <p><i>(Build log is attached.)</i></p>""", 
+    compressLog: true,
+    recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
+     [$class: 'RequesterRecipientProvider']],
+    replyTo: 'do-not-reply@company.com', 
+    subject: "Status: ${currentBuild.result?:'SUCCESS'} - 
+    Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'", 
+    to: 'bcl@nclasters.org Brent.Laster@domain.com'
