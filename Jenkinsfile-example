@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    environment {
+    }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Build phase commencing!'
+                sh './myshellscript.sh'
+            }
+        stage(')
+        }
+    }
+  post {
+        //Always run the following, regardless of what occurs
+        always { 
+            // Archive Unit and integration test results, if any
+            junit allowEmptyResults: true,
+                    testResults: '**/target/surefire-reports/TEST-*.xml, **/target/failsafe-reports/*.xml'
+        }
+        //Run the following if something changed
+        changed {
+            mail to: "${env.EMAIL_RECIPIENTS}",
+                 subject: "${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult}!",
+                 body: "Check console output at ${BUILD_URL} to view the results."
+        }
+    }
+
+    agent none
+    agent {
+        label 'Centos'
+    }
+    agent{
+        docker '<container_name>'
+    }
+}

@@ -5,6 +5,9 @@ git clone [ssh/http/https]://<user>@<domain>.com/<repo.git>
 git checkout -b <branch_name>
 git push origin development
 
+# Display all branches in a repo
+git branch -a
+
 # Create a new local repository
 git init
 

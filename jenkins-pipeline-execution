@@ -1,3 +1,8 @@
+### PIPELINE KEYPOINTS ### ****************************************************
+
+# A user may choose to write a pipeline script locally
+# or pull from an SCM source
+
 ### TRIGGERS ### ****************************************************
 
   # Pull strategy
@@ -5,7 +10,7 @@
   # Push strategy
     * Something else notifies Jenkins the code changed 
 
-#Triggers can be implemented in three ways
+# Triggers can be implemented in three ways
   # General Configuration of the Project
 
   # Scripted Pipeline
