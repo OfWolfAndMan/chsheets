@@ -5,3 +5,5 @@
     # Yellow: Job in progress
     # Green: Job completed successfully
     # Red: Job failed
+
+# Setting up the Slack API

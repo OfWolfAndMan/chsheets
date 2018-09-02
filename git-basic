@@ -1,6 +1,10 @@
 # Clone an existing repository
 git clone [ssh/http/https]://<user>@<domain>.com/<repo.git>
 
+# Switching to a new branch
+git checkout -b <branch_name>
+git push origin development
+
 # Create a new local repository
 git init
 
@@ -49,9 +53,10 @@ git config --global user.name "Username"
 git config --global user.email "email@email.com"
 
 #Add SSH key to Github
+ssh-keygen
 cat /home/<user>/.ssh/id_rsa.pub
 #Copy the SSH key
-#Add new SSH key
+#Add new SSH key into Github site (Under SSH and GPG keys)
 
 #Fix permissions in a certain git repo (Used if accidentally pushing with sudo)
 sudo chown -R $(id -u):$(id -g) "$(git rev-parse --show-toplevel)/.git"
