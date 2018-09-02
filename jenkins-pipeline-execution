@@ -61,3 +61,142 @@ def lines = input message: '<message>',
  parameters: [text(defaultValue: '''line 1
  line 2
  line 3''', description: '', name: 'Input Lines')]
+
+ # Script block (Used for allowing scripted pipeline syntax
+ # in declarative syntax language)
+  stage ('Input') {
+           steps {  
+              script {
+                 def resp = input message: '<message>', 
+                  parameters: [string(defaultValue: '',
+                  description: 'Enter response 1',
+                  name: 'RESPONSE1'), string(defaultValue: '',
+                  description: 'Enter response 2', name: 'RESPONSE2')]
+                 echo "${resp.RESPONSE1}"
+              }
+              echo "${resp.RESPONSE2}"
+           }
+}
+
+## Flow control options ##
+
+# Use timeout (Limits amount of time your script spends waiting
+# for an action to happen)
+node {
+    def response
+    stage('input') {
+       timeout(time:10, unit:'SECONDS') {
+          response = input message: 'User', 
+           parameters: [string(defaultValue: 'user1', 
+           description: 'Enter Userid:', name: 'userid')]
+       }
+       echo "Username = " + response
+    }
+}
+
+# Exception handling with timeout
+node {
+    def response
+    stage('input') {
+       try {
+         timeout(time:10, unit:'SECONDS') {
+            response = input message: 'User', 
+             parameters: [string(defaultValue: 'user1',
+             description: 'Enter Userid:', name: 'userid')]
+         }
+       }
+       catch (err) {
+          response = 'user1'
+       }
+    }
+}
+
+# Retrying the process
+retry(<n>) { // processing }
+
+# Sleeping (Delay step)
+sleep time: 5, unit: 'MINUTES'
+
+# Wait until something happens
+timeout(time:15, unit:'SECONDS') {
+    waitUntil {
+       def ret = sh returnStatus: true, 
+         script: 'test -e /home/jenkins2/marker.txt'
+       return (ret == 0)
+    }
+
+ }
+
+# Stash and unstash
+# Allows for saving and retreving files between
+# nodes and/or stages in a pipeline
+
+stages {
+   
+   stage('Source') {
+      git branch: 'test', url: 'git@diyv:repos/gradle-greetings'
+      stash name: 'test-source', includes: 'build.gradle,src/test/'
+   }
+  ...
+   stage ('Test') {
+   // execute required unit tests in parallel
+
+      parallel (
+         master: { node ('master') {
+            unstash 'test-sources'
+            sh '/opt/gradle-2.7/bin/gradle -D test.single=TestExample1 test'
+         }},
+         worker2: { node ('worker_node2') {
+            unstash 'test-sources'
+            sh '/opt/gradle-2.7/bin/gradle -D test.single=TestExample2 test'
+         }},
+      )
+   }
+}
+
+# Advanced error handling
+def err = null
+try {
+   // pipeline code
+   node ('node-name') {
+      stage ('first stage') {
+         ...
+      } // end of last stage
+   }
+} 
+catch (err) { 
+   currentBuild.result = "FAILURE"
+} 
+finally {
+   (currentBuild.result != "ABORTED"){
+       // Send email notifications for builds that failed 
+       //  or are unstable
+   }
+}
+
+# Post-processing
+# Conditions:
+    # always: Always executes the steps in the block
+    # changed: Executed if current build different from previous build
+    # success: Executes if current build successful
+    # failure: Executes if current build failed
+    # unstable: Executes if current build unstable
+
+      }
+    } // end stages
+    post {
+       always {
+          echo "Build stage complete"
+       }
+       failure {
+          echo "Build failed"
+          mail body: 'build failed', subject: 'Build failed!',
+             to: 'devops@company.com'
+        }
+        success {
+          echo "Build succeeded"
+          mail body: 'build succeeded', subject: 'Build Succeeded',
+             to: 'devops@company.com'
+        }
+    }
+} // end pipeline
