@@ -29,12 +29,27 @@ pipeline {
                  body: "Check console output at ${BUILD_URL} to view the results."
         }
     }
-
+    //Starts a separate pipeline
+    //Use only if specifying an agent each stage
     agent none
-    agent {
-        label 'Centos'
+    stages {
+        stage('Unit Tests') {
+            agent {
+                label 'Centos'
+            }
+            steps {
+                sh 'cp <mydir>/<myfile>_${BUILD_NUMBER} <mydir2>/'
+            }
+        }
+        stage('Apache testing') {
+            //May run from a docker container
+            agent{
+                docker '<container_name>'
+            }
+            steps {
+                sh ''
+            }
+        }
     }
-    agent{
-        docker '<container_name>'
-    }
+
 }
