@@ -5,6 +5,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '3'))
     }
     environment {
+        MAJOR_VERSION = 1
     }
     stages {
         stage('Build') {
@@ -25,8 +26,13 @@ pipeline {
         //Run the following if something changed
         changed {
             mail to: "${env.EMAIL_RECIPIENTS}",
-                 subject: "${JOB_NAME} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult}!",
+                 subject: "${JOB_NAME} - Version ${MAJOR_VERSION} - Build #${BUILD_NUMBER} - ${currentBuild.currentResult}!",
                  body: "Check console output at ${BUILD_URL} to view the results."
+        }
+        success {
+            //Send a Slack notification
+            slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [{$env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+
         }
     }
     //Starts a separate pipeline
@@ -51,8 +57,9 @@ pipeline {
             when {
                 branch 'development'
             }
+            //Creates directory if doesn't exist
             steps {
-                sh ''
+                sh "if ![ -d '/var/www/html/my_main/all/${env.BRANCH_NAME}' ]; then mkdir /var/www/html/my_main/all/$BRANCH_NAME" 
             }
         }
     }
