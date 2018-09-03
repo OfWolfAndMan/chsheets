@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    options {
+        //Limits the number of builds to keep to 3
+        buildDiscarder(logRotator(numToKeepStr: '3'))
+    }
     environment {
     }
     stages {
@@ -8,15 +12,15 @@ pipeline {
                 echo 'Build phase commencing!'
                 sh './myshellscript.sh'
             }
-        stage(')
+        stage('')
         }
     }
+//Runs after stages above completed
   post {
         //Always run the following, regardless of what occurs
         always { 
-            // Archive Unit and integration test results, if any
-            junit allowEmptyResults: true,
-                    testResults: '**/target/surefire-reports/TEST-*.xml, **/target/failsafe-reports/*.xml'
+            // Archive Unit and integration test results (Artifact), if any
+          archiveArtifacts artifacts: 'dist/*.jar', fingerprint: true
         }
         //Run the following if something changed
         changed {

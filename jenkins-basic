@@ -141,4 +141,4 @@ parallel (
 # $WORKSPACE
 # $GIT_COMMIT (SHA of commit being accessed)
 # $GIT_BRANCH (Branch name of git repo)
-# $
+# For additional environment vars, visit http://<ip>:<port>/env-vars.html/
