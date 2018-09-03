@@ -43,8 +43,13 @@ pipeline {
         }
         stage('Apache testing') {
             //May run from a docker container
-            agent{
+            agent {
                 docker '<container_name>'
+            }
+            //Only run this stage when the Github branch is development
+            //Multibranch pipeline is a project option in Jenkins
+            when {
+                branch 'development'
             }
             steps {
                 sh ''
