@@ -3,6 +3,8 @@ git clone [ssh/http/https]://<user>@<domain>.com/<repo.git>
 
 # Switching to a new branch
 git checkout -b <branch_name>
+
+# Push to a specific branch
 git push origin development
 
 # Display all branches in a repo

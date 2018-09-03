@@ -15,6 +15,10 @@ rsync {source} {destination}
 #Create a cronjob
 crontab -e
 
+#Make intermediary directory with multiple
+#subdirectories
+mkdir -p <TopDir>/{<SubDir1>,<SubDir2>}
+
 ### ZIP FILES ###
 
 #Create tar.gz file
