@@ -15,6 +15,9 @@ docker rmi <snapshot name>
 #Rename docker container
 docker rename <current_name> <new_name>
 
+#Start container using imagename
+docker start $(docker ps -a | grep <image_name> | awk '{ print $1 }')
+
 #Stopping a docker instance
 docker stop <container id>
 
