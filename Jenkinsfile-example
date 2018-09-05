@@ -13,7 +13,17 @@ pipeline {
                 echo 'Build phase commencing!'
                 sh './myshellscript.sh'
             }
-        stage('')
+        stage('Validate YAML syntax') {
+            steps {
+                sh 'bash ./yaml-verify.sh'
+            }
+        }
+        stage('Approve Deployment') {
+            steps {
+                //Requires selection of 'Proceed' and 'Abort' options
+                input 'Deploy this config to production?'
+            }
+        }
         }
     }
 //Runs after stages above completed
@@ -31,7 +41,7 @@ pipeline {
         }
         success {
             //Send a Slack notification
-            slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [{$env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
 
         }
     }
