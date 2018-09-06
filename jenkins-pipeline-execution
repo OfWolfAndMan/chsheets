@@ -269,3 +269,28 @@ import static <Library>
 
 #With import statement
 @Library('myLib@1.0') import static org.demo.Utilities.*
+
+#Add some timestamps
+def commandOutput
+timestamps {
+   commandOutput = sh(script: "${<command-to-run>}", 
+   returnStdout: true).trim()
+}
+echo commandOutput
+
+
+#Creating a method
+
+// org.demo.buildUtils
+package org.demo
+#Defines the method
+def timedGradleBuild(tasks) {
+   timestamps {
+      sh "${tool 'gradle3.2'}/bin/gradle ${tasks}"
+   }
+}
+
+#Invokes the pipeline above
+def myUtils = new org.demo.buildUtils()
+git "<gradle project to clone>"
+myUtils.timedGradleBuild("clean build")
