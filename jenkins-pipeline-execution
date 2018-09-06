@@ -247,3 +247,25 @@ pipeline {
     subject: "Status: ${currentBuild.result?:'SUCCESS'} - 
     Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'", 
     to: 'bcl@nclasters.org Brent.Laster@domain.com'
+
+### LIBRARIES ### ****************************************************
+#Import a library
+import static <Library>
+
+@Library('<libname>[@version]')_ [<import statement>]
+#Version may be tag, branch name, etc
+#Import statement for subsets
+#Import statement not required
+#Underscore only required if no import statement used
+
+#Load default version of a library
+@Library('myLib')
+
+#Load specific version of library
+@Library('yourLib@2.0')
+
+#Access multiple libraries
+@Library(['myLib', 'yourLib@master'])
+
+#With import statement
+@Library('myLib@1.0') import static org.demo.Utilities.*

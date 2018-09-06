@@ -53,6 +53,11 @@ pipeline {
             agent {
                 label 'Centos'
             }
+            //Import some libraries
+            libraries {
+                lib("mylib@master")
+                lib("alib")
+            }
             steps {
                 sh 'cp <mydir>/<myfile>_${BUILD_NUMBER} <mydir2>/'
             }
