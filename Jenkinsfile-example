@@ -7,6 +7,10 @@ pipeline {
         //reported as timed out
         timeout(time: 30, unit: 'MINUTES')
     }
+    //Need to look into this more
+    tools {
+        jdk "java8"
+    }
     environment {
         MAJOR_VERSION = 1
     }

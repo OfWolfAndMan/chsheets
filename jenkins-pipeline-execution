@@ -122,7 +122,9 @@ node {
          }
        }
        catch (err) {
+          currentBuild.result = "FAILED"
           response = 'user1'
+          throw err
        }
     }
 }
@@ -293,4 +295,51 @@ def timedGradleBuild(tasks) {
 #Invokes the pipeline above
 def myUtils = new org.demo.buildUtils()
 git "<gradle project to clone>"
+myUtils.timedGradleBuild("clean build")
+
+
+### SCRIPTED LANGUAGE SYNTAX ### ****************************************************
+
+#Identifiers
+//
+def employeename
+
+#Builtin data types (Groovy) of interest
+  - byte
+  - short (Short number)
+  - int (Whole numbrers)
+  - long (Long numbers)
+  - float (number with decimal points)
+  - char (Single character)
+  - Boolean (True/false)
+  - String 
+
+#Sample library routine
+//Declares commandOutput variable
+def commandOutput
+timestamps {
+  //Sets commandOutput variable
+   commandOutput = sh(script: "${<command-to-run>}", 
+   returnStdout: true).trim()
+}
+//Displays commandOutput variable
+echo commandOutput
+
+#Creating a method
+#Stored in src/
+// org.demo.buildUtils
+
+package org.demo
+//Creates the method
+def timedGradleBuild(tasks) {
+   timestamps {
+      sh "${tool 'gradle3.2'}/bin/gradle ${tasks}"
+   }
+}
+
+#Invoking org.demo.buildUtils
+//Creates an instantiation of the method
+def myUtils = new org.demo.buildUtils()
+git "<gradle project to clone>"
+//Passes criteria into method
 myUtils.timedGradleBuild("clean build")
