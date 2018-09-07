@@ -3,6 +3,9 @@ pipeline {
     options {
         //Limits the number of builds to keep to 3
         buildDiscarder(logRotator(numToKeepStr: '3'))
+        //If build takes more than 30 minutes, stop and
+        //reported as timed out
+        timeout(time: 30, unit: 'MINUTES')
     }
     environment {
         MAJOR_VERSION = 1
