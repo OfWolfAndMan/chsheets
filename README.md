@@ -12,6 +12,7 @@ Current cheatsheet listing:
 - Python
 - Python Regex
 - Python Big Data
+- Java
 - Pandas
 - Ansible Networking
 

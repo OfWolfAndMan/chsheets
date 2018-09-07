@@ -1,0 +1,123 @@
+### BASICS ### ****************************************************
+
+#Define a integer
+int myNumber = 1;
+#Define a boolean
+bool myBool = true;
+#Define a single character
+char myChar = "A"
+#Define 
+#Write a comment
+// Here's a comment
+#Multiline comment
+/*
+Here's
+a
+comment.
+*/
+
+### OPERATORS ### ****************************************************
+
+#And operator
+System.out.println(true && true);
+//prints true
+
+#Or operator
+System.out.println(true || false);
+//prints true
+
+#Not operator
+System.out.println( !(4 <= 10) );
+//prints false
+
+#Order of operations
+// 1. ! 2. && 3. ||
+
+boolean riddle = !( 1 < 8 || (5 > 2 && 3 < 5));
+System.out.println(riddle);
+//Prints false
+
+### CONDITIONALS/CONTROL FLOW ### ****************************************************
+
+#If-then-else statement
+int round;
+
+if (round > 12) {
+
+    System.out.println("The match is over!");
+
+} else if (round > 0) {
+
+    System.out.println("The match is underway!");
+
+}	else {
+
+    System.out.println("The boxing match hasn't started yet.");
+
+}	
+
+#Ternary Conditional
+//Results in 'Y'
+int fuelLevel = 3;
+
+char canDrive = (fuelLevel > 0) ? 'Y' : 'N';
+System.out.println(canDrive);
+
+#Switch statement
+//Results in default case
+char penaltyKick = 'X';
+
+switch (penaltyKick) {
+
+    case 'L': System.out.println("Messi shoots to the left and scores!");
+                        break; 
+    case 'R': System.out.println("Messi shoots to the right and misses the goal!");
+                        break;
+    case 'C': System.out.println("Messi shoots down the center, but the keeper blocks it!");
+                        //Needed to prevent the switch statement from continuing through conditions
+                        break;
+    default:
+        System.out.println("Messi is in position...");
+
+}
+
+#Classes
+//Inheritance used with "extends" statement
+class Car extends Vehicle{
+    //Instance Variable
+    int age;
+    //Class constructor (Object)
+    public Car(int carsAge) {
+       age = carsAge;     
+    }
+    //Defining a method (Actions of a constructor/object    )
+    //"void" indicates to the method that no value
+    //is returned after calling the method
+    public void revUp() {
+        System.out.println("Vroom!");
+    }
+    //Returns an integer (Has to return an integer)
+    public int getAge() {
+        return age
+    }
+    //Main method
+    //Code in main is executed when script ran
+    public static void main(String[] args) {
+        //<Class> <Instantiation Name> = new <Class>(<age value>)
+        Car myFastCar = new Car(12);
+        //Outputs "Vroom!"
+        myFastCar.revUp();
+        //Returns age of car
+        int myFastCarAge = myFastCar.getAge;
+        System.out.println(myFastCarAge);
+        //Applies inherited method
+        myFastCar.checkBatteryStatus();
+	}
+}
+
+class Vehicle {
+    public void checkBatteryStatus() {
+        System.out.println("The battery is 
+        fully charged and ready to go!");
+    }
+}
