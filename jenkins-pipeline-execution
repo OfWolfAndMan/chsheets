@@ -343,3 +343,113 @@ def myUtils = new org.demo.buildUtils()
 git "<gradle project to clone>"
 //Passes criteria into method
 myUtils.timedGradleBuild("clean build")
+
+### DECLARATIVE SYNTAX LANGUAGE ### ****************************************************
+
+#Tools
+- ant
+- git
+- gradle
+- jdk
+- jgit
+- jgitapache
+- maven
+
+tools {
+  <tool> <tool_version>
+}
+
+#Example
+tools{
+  gradle "gradle3.2"
+}
+
+#Options
+- buildDiscarder (Only keeps so many builds)
+   options { buildDiscarder(logRotator(numToKeepStr: '10')) }
+- disableConcurrentBuilds (Prevents concurrent builds of the same pipeline)
+- retry (If pipeline fails, retry so many times)
+  options { retry(2) }
+- skipStagesAfterUnstable (If stage in pipeline unstable, don't process
+remaining stages)
+  options { skipStagesAfterUnstable()}
+- timeout
+  options { timeout(time: 15, unit: 'MINUTES') }
+- timestamps 
+  options { timestamps() }
+
+#Triggers
+- cron (Pursues at interval) and pollSCM checks for updates
+  // Start a pipeline execution at 10 minutes past the hour 
+  triggers { cron(10 * * * *) }
+
+  // Scan for SCM changes at 10-minute intervals
+  triggers { pollSCM(*/10 * * * *) }
+
+
+- upstream (Takes comma-separated string) of Jenkins job and condition to check)
+  triggers { 
+      upstream(upstreamProjects: 'jobA,jobB', threshold:
+          hudson.model.Result.SUCCESS) 
+  }
+
+
+- githubPush (Uses webhook on Github side to detect when push occurs)
+  triggers { githubPush() }
+
+#parameters
+- booleanParam
+  parameters { booleanParam(defaultValue: false, 
+    description: 'test run?', name: 'testRun')}
+- choice (Select from a list of choices)
+  parameters{ choice(choices: 'Windows-1\nLinux-2', description: 
+    'Which platform?', name: 'platform')}
+- file (Add a file)
+  parameters{ file(fileLocation: '', description: 'Select the file to
+    upload')}
+- text (Enter some text)
+  parameters{ text(defaultValue: 'No message', description: 
+ 'Enter your message', name: 'userMsg')
+- password (Allows to enter hidden password)
+  parameters{ password(defaultValue: "userpass1", description: 
+  'User password?', name: 'userPW')}
+- run (Allows used to select particular run from job)
+  * Filter options:
+      + All Builds
+      + Completed Builds
+      + Successful Builds
+      + Stable Builds Only
+  parameters{ run(name: "Last success", description: 
+    'Last successful project', project: 'project1', 
+    filter: 'Successful Builds')}
+- string (Parameter for entering string)
+  parameters{ string(defaultValue: "Linux", 
+    description: 'What platform?', name: 'platform')}
+
+#Passing parameters into a pipeline
+pipeline {
+   agent any
+   parameters{ 
+      string(defaultValue: "maintainer", 
+             description: 'Enter user role:', name: 'userRole')
+   }
+   stages {
+      stage('listVals') {
+          steps {
+            //Passes parameters in
+            echo "User's role = ${params.userRole}"
+          }
+      } 
+   }
+ }
+
+ #Condition execution options
+ - allOf (All statements must match)
+ - anyOf (Any one statement may match)
+ - not (Not the statement)
+ when {
+   <option> {
+     <criteria 1>
+     <criteria 2>
+   }
+ }
