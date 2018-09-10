@@ -21,6 +21,11 @@ docker start $(docker ps -a | grep <image_name> | awk '{ print $1 }')
 #Stopping a docker instance
 docker stop <container id>
 
+#Run a command inside of the container
+docker exec -it $(docker container ls -l --format "{{.Names}}") \
+   <insert shell command here>
+
+
 #Get the machine's IP
 docker-machine IP
 
