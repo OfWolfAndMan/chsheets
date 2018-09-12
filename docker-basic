@@ -3,6 +3,9 @@ docker ps (Show docker containers that have been stopped with -f "status=exited"
 docker commit <container id> <snapshot name>
 docker run -t -i <snapshot name> <command in container> -p <port number> -d
 
+#Build multi-container applications
+docker-compose <add more stuff here>
+
 #Verify Docker installed correctly
 docker run hello-world
 
