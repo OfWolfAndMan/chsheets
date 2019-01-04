@@ -62,3 +62,9 @@ deps =
 commands =
     py.test {posargs}
 -------------------------------------------------------------------------------
+
+# Using pytest
+# Create a "tests" folder. All
+# files and functions should start with "test"
+# Run the "pytest" function when done, and it will
+# recursively run tests on all test*.py or *test.py files	
