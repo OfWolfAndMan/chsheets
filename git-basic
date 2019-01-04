@@ -56,6 +56,7 @@ git reset <file>
 #Set git global variables (Username/email)
 git config --global user.name "Username"
 git config --global user.email "email@email.com"
+git remote set-url origin git@github.com:<username>/<repo>
 
 #Add SSH key to Github
 ssh-keygen
