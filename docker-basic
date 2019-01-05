@@ -32,6 +32,9 @@ docker exec -it $(docker container ls -l --format "{{.Names}}") \
 #Get the machine's IP
 docker-machine IP
 
+#Get Docker container IP
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container-name-or-id>
+
 #Look at properties of container
 docker container inspect <Container name>
 
@@ -80,3 +83,8 @@ docker export <container_name> | gzip <container_export_name>.gz
 scp <container_export_name>.gz <docker_user>@<docker_ip>:/home/<docker_user>
 zcat <container_export_name>.gz | docker import - <container_name>
 docker run -i -t <container_name> /bin/bash
+
+## Run specific container instances
+
+# Artifactory
+docker run --name artifactory -d -p 8081:8081 docker.bintray.io/jfrog/artifactory-cpp-ce:latest
