@@ -9,8 +9,11 @@ docker-compose <add more stuff here>
 #Verify Docker installed correctly
 docker run hello-world
 
-#Show docker images
+#Show docker images (Already built)
 docker images
+
+#Build Docker image (With Dockerfile)
+docker build -t <image-name> <Dockerfile path>
 
 #Remove snapshot
 docker rmi <snapshot name>
@@ -63,6 +66,9 @@ COPY requirements.txt requirements.txt
 ENTRYPOINT ["ping"]
 #Command arguments passed to ping
 CMD ["8.8.8.8", "-c", "3"]
+
+#Display logs of container in docker
+docker logs <container-id>
 
 #Valid Linux shell command
 RUN pip install -r requirements.txt
