@@ -5,7 +5,7 @@ int myNumber = 1;
 #Define a boolean
 bool myBool = true;
 #Define a single character
-char myChar = "A"
+char myChar = "A"   
 #Define 
 #Write a comment
 // Here's a comment
@@ -45,7 +45,9 @@ int round;
 if (round > 12) {
 
     System.out.println("The match is over!");
-
+//This could also be written as
+//if (round > 12) System.out.println("The match is over!");
+//Since there isn't a block, just a single line
 } else if (round > 0) {
 
     System.out.println("The match is underway!");
