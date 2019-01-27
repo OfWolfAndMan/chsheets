@@ -53,6 +53,9 @@ git tag <tag name>
 # Unstages the file, but preserves content
 git reset <file>
 
+#Show local repo git config
+git config --list
+
 #Set git global variables (Username/email)
 git config --global user.name "Username"
 git config --global user.email "email@email.com"
