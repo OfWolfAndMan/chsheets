@@ -1,7 +1,7 @@
 # Version 0.7
 Current cheatsheet listing:
 
-- [** Mac OS Hardening **] (MacOS-hardening)
+- [Mac OS Hardening](MacOS-hardening)
 - Docker
 - Vagrant
 - Jenkins
