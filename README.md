@@ -11,13 +11,15 @@ Current cheatsheet listing:
 - [Linux](linux-basic)
 - [Redteam Shell](redteam-shell)
 - [Windows Hardening](windows-hardening)
-- [F5 BIG-IP](F5\ BIG-IP\ LTM)
+- [F5 BIG-IP](F5-BIG-IP-LTM)
 - Python
-- Python Regex
-- Python Big Data
-- Java
-- Pandas
-- Ansible Networking
+    + [Basic](python-basic)
+    + [Regex](python-regex)
+    + [Big Data](python-bigdata)
+    + [Optimizations](python-optimizations)
+    + [Pandas](Pandas-Examples)
+- [Java](java-basic)
+- [Ansible Networking](ansible-network.yml)
 
 ## Future Development
 
