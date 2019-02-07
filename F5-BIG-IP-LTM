@@ -51,3 +51,17 @@
 - Destination Address: Same subnet as external interface
 - Service Port
 - Default Pool: Pool that was assigned in the pools tab
+
+
+-- Load Balancing Methods --
+
+Static
+  - Round Robin
+    * Doesn't take into account specific events
+  - Ratio
+    * Member
+    * Node
+Dynamic
+  -
+  -
+
