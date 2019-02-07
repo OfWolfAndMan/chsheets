@@ -69,6 +69,12 @@ git log -p <file>
 # Download changes and directly merge/integrate into the HEAD
 git pull <remote> <branch>
 
+# Create a new branch and switch to it
+git checkout -b <new_branch_name>
+
+# Create new branch on git server after creating it
+git push origin <new_branch_name>
+
 # Mark the current commit with a tag
 git tag <tag name>
 
@@ -79,6 +85,14 @@ git config --list
 git config --global user.name "Username"
 git config --global user.email "email@email.com"
 git remote set-url origin git@github.com:<username>/<repo>
+
+# Fork Management
+## Retrieve updates from branch that you forked from
+git fetch upstream
+
+# Move a commit or set of commits from one branch to another
+git checkout <branch to add commit changes to>
+git cherry-pick <commit id 1 from other branch>
 
 # SSH Key Management
 ## Add SSH key to Github
