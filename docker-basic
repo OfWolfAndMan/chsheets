@@ -18,6 +18,9 @@ docker build -t <image-name> <Dockerfile path>
 #Remove snapshot
 docker rmi <snapshot name>
 
+#Cleanup dangling docker images
+docker rmi -f $(docker images -qf dangling=true)
+
 #Rename docker container
 docker rename <current_name> <new_name>
 
