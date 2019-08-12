@@ -21,6 +21,9 @@ git push origin development
 # Create a new local repository
 git init
 
+# Show the changes between current code and your last commit
+git diff
+
 
 # File Management
 # Display changed files in working directory
@@ -93,6 +96,9 @@ git fetch upstream
 # Move a commit or set of commits from one branch to another
 git checkout <branch to add commit changes to>
 git cherry-pick <commit id 1 from other branch>
+
+# Discard changes in working directory
+git checkout -- <file>
 
 # SSH Key Management
 ## Add SSH key to Github
