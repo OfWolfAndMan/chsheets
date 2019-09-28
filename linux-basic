@@ -36,6 +36,9 @@ unzip {input.zip} -d {folder}
 #Start a service at startup
 systemctl enable <service>
 
+#Show spaces/tabs in a file
+cat -e -t -v makefile_name
+
 
 
 ### COMMON FILE LOCATIONS ###
