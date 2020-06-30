@@ -36,10 +36,4 @@ add_animal_in_family( species, 'cat', 'felidea')
   at scale
 
 #Alternative: Asyncio
-
-
-
-
-
-
 ==================================================
