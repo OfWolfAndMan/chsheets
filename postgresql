@@ -56,3 +56,17 @@ SELECT * FROM devices WHERE vendor IN ('Cisco', 'Juniper');
 
 #Retrieves devices created between January and May 1, 2020
 SELECT * FROM devices WHERE created_on BETWEEN '2020-01-01' AND '2020-05-01';
+
+#Run an inner join between devices and credentials (Ties in user/password for a device)
+SELECT hostname, management_ip, vendor, credentials.user, credentials.password FROM devices inner join credentials on devices.credentials = credentials.user;
+
+#Update table so 'user' value in credentials table must be unique
+ALTER TABLE public.credentials ADD CONSTRAINT credentials_un UNIQUE ("user");
+
+#Create a field with ENUM values
+CREATE TYPE net_vendor AS ENUM ('cisco', 'juniper', 'fortinet', 'checkpoint');
+CREATE TABLE person (
+    model text,
+    vendor net_vendor,
+    dev_type text
+);
