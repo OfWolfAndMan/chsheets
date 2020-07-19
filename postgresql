@@ -65,8 +65,13 @@ ALTER TABLE public.credentials ADD CONSTRAINT credentials_un UNIQUE ("user");
 
 #Create a field with ENUM values
 CREATE TYPE net_vendor AS ENUM ('cisco', 'juniper', 'fortinet', 'checkpoint');
-CREATE TABLE person (
+CREATE TABLE hardware (
     model text,
     vendor net_vendor,
     dev_type text
+);
+
+#Create a field where uuid is generated for the field
+CREATE TABLE public.acls (
+    id uuid NOT NULL DEFAULT uuid_generate_v1()
 );
