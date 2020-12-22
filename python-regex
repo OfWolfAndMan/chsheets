@@ -1,12 +1,3 @@
-###Search for an IP address###
-	import re
-	
-	variable = "VLAN 205     IP Address 10.10.10.101
-	output = re.search(r"\d+\.\d+\.\d+\.\d+",variable)
-	output_one = output.group(0)
-	print output_one
-	#Will print "10.10.10.101" in output
-
 ###Separate a line in an ARP table based on regex###
 	import re
 	from netmiko import ConnectHandler
@@ -26,10 +17,3 @@
 		pass
 		#Sometimes, there will be lines that will not match this expression,
 		#and return with a NoneType. This will skip those lines
-
-###Replace expressions based on regex###
-	import re
-	arp  = "22.22.22.1     0     b4:a9:5a:ff:c8:45  VLAN#222    L 10.10.10.10"
-	b = re.sub(r"\d", "7", arp)
-	print b
-	#output will have every number in the string replaced with 7s
