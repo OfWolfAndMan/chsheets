@@ -22,3 +22,12 @@ commands =
 # recursively run tests on all test*.py or *test.py files
 
 -------------------------------------------------------------------------------
+
+#Multithreading issues in python
+- Not problematic on a small scale, large
+  amounts of memory issues at scale can be 
+  observed
+- Leads to race conditions, resource starvation
+  at scale
+
+#Alternative: Asyncio
