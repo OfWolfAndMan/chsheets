@@ -1,4 +1,5 @@
-#Install Jenkins in a Docker container
+### Install Jenkins in a Docker container
+```Shell
 docker run \
   -u root \
   --rm \
@@ -8,14 +9,17 @@ docker run \
   -v jenkins-data:/var/jenkins_home \
   -v /var/run/docker.sock:/var/run/docker.sock \
   jenkinsci/blueocean
+```
 
-#Access command line to get initial password
+### Access command line to get initial password
+```Shell
 docker ps
 docker exec -it <container id> bash
 cat /var/jenkins_home/secrets/initialAdminPassword
+```
 
-
-### TERMINOLOGY ### ****************************************************
+***
+# TERMINOLOGY
 
 Master:
 - Primary, controlling system for a Jenkins instance
@@ -40,9 +44,12 @@ Node Labels:
 - Groups classes of nodes together
 - Identifies some characteristic of a node that is useful to know for processing
 
-### SIMPLE PIPELINE EXAMPLE ### ****************************************************
-#Jenkins DSL modeled after the Groovy framework
+***
 
+# SIMPLE PIPELINE EXAMPLE
+### Jenkins DSL modeled after the Groovy framework
+
+```Groovy
 node ('worker1') {
   // The stage allows to group individual settings,
   // DSL commands, and logic together.
@@ -57,13 +64,15 @@ node ('worker1') {
       sh myshellscript.sh
     }
 }
+```
 
-#'worker1': Name of the node
-#stage: Groups together individual settings, DSL commands, and logic
-#steps: NOT Groovy commands. 
+- 'worker1': Name of the node
+- stage: Groups together individual settings, DSL commands, and logic
+- steps: NOT Groovy commands. 
 
-#Example of a parallel structure to designate mappings
+### Example of a parallel structure to designate mappings
 
+```Groovy
 parallel (
             win: { node ('win64'){
              ...
@@ -72,8 +81,11 @@ parallel (
              ...
              }},
           )
+```
       
-### DECLARATIVE PIPELINE STRUCTURE ### ****************************************************
+***
+
+# DECLARATIVE PIPELINE STRUCTURE
 
 +*****************************************************+
 ** pipeline                                          **
@@ -130,20 +142,22 @@ parallel (
 **  +***********+                                    **
 **  |   post    |                                    **
 **  +***********+                                    ** 
-+*****************************************************+
++******************************************************
 
-### ENVIRONMENT VARIABLES ### ****************************************************
+***
 
-# $BUILD_NUMBER
-# $NODE_NAME
-# $JOB_NAME
-# $EXECUTOR_NUMBER
-# $WORKSPACE
-# $GIT_COMMIT (SHA of commit being accessed)
-# $GIT_BRANCH (Branch name of git repo)
-# For additional environment vars, visit http://<ip>:<port>/env-vars.html/
+# ENVIRONMENT VARIABLES 
 
-### SHARED LIB SCOPE ### ****************************************************
+- $BUILD_NUMBER
+- $NODE_NAME
+- $JOB_NAME
+- $EXECUTOR_NUMBER
+- $WORKSPACE
+- $GIT_COMMIT (SHA of commit being accessed)
+- $GIT_BRANCH (Branch name of git repo)
+- For additional environment vars, visit http://<ip>:<port>/env-vars.html/
+
+ SHARED LIB SCOPE
 
 +**********************************************************************************+
 **                              Jenkins Environment                               **

@@ -3,12 +3,13 @@ Current cheatsheet listing:
 
 - [Mac OS Hardening](MacOS-hardening)
 - [Docker](docker-basic.md)
-- [Vagrant](vagrant-basic)
+- [Vagrant](vagrant-basic.md)
 - Jenkins
-    + [basic](jenkins-basic)
+    + [basic](jenkins-basic.md)
     + [pipeline execution](jenkins-pipeline-execution)
     + [plugins](jenkins-plugins)
 - [Linux](linux-basic.md)
+- [Cumulus VX](cumulus-vx.md)
 - [Redteam Shell](redteam-shell.md)
 - [Windows Hardening](windows-hardening)
 - [F5 BIG-IP](F5-BIG-IP-LTM)
