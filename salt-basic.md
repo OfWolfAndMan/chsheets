@@ -1,38 +1,59 @@
-#Install Salt
+### Install Salt
 
-
+```Shell
 sudo systemctl start salt-master
-#Without systemd
+```
+
+### Without systemd
+
+```Shell
 sudo salt-master -d
-
 sudo systemctl start salt-proxy@device1
+```
 
-#Without systemd
+### Without systemd
+
+```Shell
 sudo salt-proxy -d --proxyid device1
+```
 
-#Accept for Salt-key initially
+### Accept for Salt-key initially
 
 Proxy minion for network devices
 
-#CLI syntax
-sudo salt <target> <function> [<arguments>]
+### CLI syntax
 
-#Examples
+```Shell
+sudo salt <target> <function> [<arguments>]
+```
+
+### Examples
+
+```Shell
 sudo salt <hostname> net.load.config <path>
 sudo salt <hostname> net.load_template [<https:// | salt:// | s3:// | ftp://>]<path>
+```
 
-## Common Arguments ##
+## Common Arguments
 
-#Dry run mode (Argument)
+### Dry run mode (Argument)
+
+```Shell
 test=True
+```
 
-#Format into JSON
+### Format into JSON
+
+```Shell
 pretty=True
+```
 
-## Recommendations ##
+## Recommendations
+
 Separate data (Pillar) from automation logic (SLS)
 
-## File Locations ##
+## File Locations
 
-#Salt proxy minion
+### Salt proxy minion
+
 /var/log/salt/proxy

@@ -1,18 +1,18 @@
-# Version 0.7
+# Version 1.1
 Current cheatsheet listing:
 
-- [Mac OS Hardening](MacOS-hardening)
 - [Docker](docker-basic.md)
 - [Vagrant](vagrant-basic.md)
 - Jenkins
     + [basic](jenkins-basic.md)
     + [pipeline execution](jenkins-pipeline-execution)
+    + [example](Jenkinsfile-example.md)
 - [Linux](linux-basic.md)
 - [Cumulus VX](cumulus-vx.md)
 - [Redteam Shell](redteam-shell.md)
 - [Elastic Stack](elk-stack.md)
 - [Windows Hardening](windows-hardening)
-- [F5 BIG-IP](F5-BIG-IP-LTM)
+- [F5 BIG-IP](F5-BIG-IP-LTM.md)
 - [Basic SQL](sql-basic.md)
 - [PostGreSQL](postgresql.md)
 - Python
@@ -22,6 +22,7 @@ Current cheatsheet listing:
     + [Pandas](Pandas-Examples.md)
 - [Java](java-basic.md)
 - [Ansible Networking](ansible-network.yml)
+- [Salt](salt-basic.md)
 
 ## Future Development
 
