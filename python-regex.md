@@ -1,4 +1,5 @@
-###Separate a line in an ARP table based on regex###
+### Separate a line in an ARP table based on regex
+	```Python
 	import re
 	from netmiko import ConnectHandler
 	import getpass
@@ -17,3 +18,5 @@
 		pass
 		#Sometimes, there will be lines that will not match this expression,
 		#and return with a NoneType. This will skip those lines
+
+	```

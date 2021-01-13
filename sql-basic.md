@@ -1,3 +1,4 @@
+```SQL
 create table devices (
     hostname VARCHAR(30) NOT NULL PRIMARY KEY,
     management_ip inet NOT NULL,
@@ -6,9 +7,12 @@ create table devices (
     'Juniper', 'Arista', 'Fortinet', 'Checkpoint', 'HP', 'Brocade')),
     credential_id VARCHAR(20) REFERENCES credentials (name)
 );
+```
 
+```SQL
 create table credentials (
     name VARCHAR(20) NOT NULL PRIMARY KEY,
     username VARCHAR(20) NOT NULL,
     password VARCHAR(25) NOT NULL
 );
+```
