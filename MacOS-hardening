@@ -1,8 +1,0 @@
-#Get the routing table
-netstat -nr
-
-#Adding a route to the table
-sudo route -n add -n <network>/<CIDR> <next hop>
-
-#Show all running launchctl daemons/agents
-launchctl list

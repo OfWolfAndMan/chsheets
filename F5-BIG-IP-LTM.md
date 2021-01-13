@@ -1,4 +1,4 @@
-### Interface Schema ###
+### Interface Schema
 
 - Mgmt: 
 - 1.1: External
@@ -6,12 +6,12 @@
 - 1.3: HA
 
 
-### Default Login ###
+### Default Login
 
 - CLI: root/default
 - GUI: admin/admin
 
-### Terminology ###
+### Terminology
 
 - Self IP: An IP Used by the LTM itself
 	* Self IP should be identical in the configuration to the HA device
@@ -21,7 +21,7 @@
 - Pool Member: Node+Service Port
 - Pool: Related Pool Members for load balancing
 
-### Default Ports/Protocols Allowed on Self-IP (Port Lockdown) ###
+### Default Ports/Protocols Allowed on Self-IP (Port Lockdown)
 
 - OSPF
 - TCP 4353 (iQuery)
@@ -36,16 +36,16 @@
 - UDP 1026 (Network Failover)
 
 
-### Adding Servers ###
+### Adding Servers
 
--- Nodes --
+**Nodes**
 
 - Name
 - Address (Specific to the server)
 
--- Pools --
+**Pools**
 
--- Virtual Servers --
+**Virtual Servers**
 
 - Name
 - Destination Address: Same subnet as external interface
@@ -53,7 +53,7 @@
 - Default Pool: Pool that was assigned in the pools tab
 
 
--- Load Balancing Methods --
+**Load Balancing Methods**
 
 Static
   - Round Robin

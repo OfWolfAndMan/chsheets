@@ -1,3 +1,4 @@
+```Groovy
 pipeline {
     agent any
     options {
@@ -87,3 +88,4 @@ pipeline {
     }
 
 }
+```
