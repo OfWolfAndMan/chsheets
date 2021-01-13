@@ -7,10 +7,10 @@ Current cheatsheet listing:
 - Jenkins
     + [basic](jenkins-basic.md)
     + [pipeline execution](jenkins-pipeline-execution)
-    + [plugins](jenkins-plugins)
 - [Linux](linux-basic.md)
 - [Cumulus VX](cumulus-vx.md)
 - [Redteam Shell](redteam-shell.md)
+- [Elastic Stack](elk-stack.md)
 - [Windows Hardening](windows-hardening)
 - [F5 BIG-IP](F5-BIG-IP-LTM)
 - [Basic SQL](sql-basic.md)

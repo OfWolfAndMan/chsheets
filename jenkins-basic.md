@@ -87,6 +87,7 @@ parallel (
 
 # DECLARATIVE PIPELINE STRUCTURE
 
+```
 +*****************************************************+
 ** pipeline                                          **
 **                                                   **
@@ -145,6 +146,7 @@ parallel (
 +******************************************************
 
 ***
+```
 
 # ENVIRONMENT VARIABLES 
 
@@ -159,6 +161,7 @@ parallel (
 
  SHARED LIB SCOPE
 
+```
 +**********************************************************************************+
 **                              Jenkins Environment                               **
 **  +****************************************************************+            **
@@ -177,4 +180,18 @@ parallel (
 **  |    +**************+  |   |    +**************+  | |    +**************+  |  **
 **  | Multibranch Pipeline |   | Github Organization  | |         Folder       |  **                               
 **  +**********************+   +**********************+ +**********************+  **
-+**********************************************************************************+                               
++**********************************************************************************+
+```
+
+# PLUGINS
+
+## Build Pipeline
+
+### Used to visualize pipeline in Jenkins
+    - Blue: Job hasn't run yet
+    - Yellow: Job in progress
+    - Green: Job completed successfully
+    - Red: Job failed
+
+### Setting up the Slack API
+    - In Slack, 
