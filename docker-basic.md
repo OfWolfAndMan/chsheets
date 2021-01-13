@@ -211,4 +211,6 @@ docker run -d -p `<port:port>` `<image name>` `<image id>`
 
 **Artifactory**
 
-`docker run --name artifactory -d -p 8081:8081 docker.bintray.io/jfrog/artifactory-cpp-ce:latest`
+```
+docker run --name artifactory -d -p 8081:8081 docker.bintray.io/jfrog/artifactory-cpp-ce:latest
+```

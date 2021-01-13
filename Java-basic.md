@@ -1,45 +1,70 @@
-### BASICS ### ****************************************************
+## BASICS
 
-#Define a integer
+### Define a integer
+
+```Java
 int myNumber = 1;
-#Define a boolean
+```
+### Define a boolean
+
+```Java
 bool myBool = true;
-#Define a single character
-char myChar = "A"   
-#Define 
-#Write a comment
+```
+
+### Define a single character
+
+```Java
+char myChar = "A"
+```  
+
+### Define 
+### Write a comment
+
+```Java
 // Here's a comment
-#Multiline comment
-/*
-Here's
-a
-comment.
-*/
+```
 
-### OPERATORS ### ****************************************************
+### Multiline comment
 
-#And operator
+
+## OPERATORS
+
+### And operator
+
+```Java
 System.out.println(true && true);
 //prints true
+```
 
-#Or operator
+### Or operator
+
+```Java
 System.out.println(true || false);
 //prints true
+```
 
-#Not operator
+### Not operator
+
+```Java
 System.out.println( !(4 <= 10) );
 //prints false
+```
 
-#Order of operations
+### Order of operations
+
+```Java
 // 1. ! 2. && 3. ||
 
 boolean riddle = !( 1 < 8 || (5 > 2 && 3 < 5));
 System.out.println(riddle);
 //Prints false
+```
 
-### CONDITIONALS/CONTROL FLOW ### ****************************************************
+## CONDITIONALS/CONTROL FLOW
 
-#If-then-else statement
+### If-then-else statement
+
+```Java
 int round;
 
 if (round > 12) {
@@ -56,16 +81,22 @@ if (round > 12) {
 
     System.out.println("The boxing match hasn't started yet.");
 
-}	
+}
+```	
 
-#Ternary Conditional
+### Ternary Conditional
+
+```Java
 //Results in 'Y'
 int fuelLevel = 3;
 
 char canDrive = (fuelLevel > 0) ? 'Y' : 'N';
 System.out.println(canDrive);
+```
 
-#Switch statement
+### Switch statement
+
+```Java
 //Results in default case
 char penaltyKick = 'X';
 
@@ -82,8 +113,11 @@ switch (penaltyKick) {
         System.out.println("Messi is in position...");
 
 }
+```
 
-#Classes
+### Classes
+
+```Java
 //Inheritance used with "extends" statement
 class Car extends Vehicle{
     //Instance Variable
@@ -123,62 +157,80 @@ class Vehicle {
         fully charged and ready to go!");
     }
 }
+```
 
-### DATA STRUCTURES ### ****************************************************
+## DATA STRUCTURES
 
-#For Loop
+### For Loop
+
+```Java
 for (int counter = 0; counter < 5; counter++) {
 
     System.out.println("The counter value is: " + counter);
 
 }
+```
 
-#Array Lists
+### Array Lists
+
+```Java
 import java.util.ArrayList;
 ArrayList<Integer> quizGrades = new ArrayList<Integer>();
 
-#Manipulating the Array List
+### Manipulating the Array List
 quizGrades.add(96);
 quizGrades.add(62);
 quizGrades.add(75);
 //Adds 100 in position 0 (First entry)
 quizGrades.add(0, 100);
 
-#Accessing an Array value
+### Accessing an Array value
 //Returns 96
 System.out.println( quizGrades.get(0) );
 
-#Iterate over an Array List
+### Iterate over an Array List
 //Size method used to return number of elements
 //in array
 for (int i = 0; i < quizGrades.size(); i++) {
     System.out.println( quizGrades.get(i) );
 }
-#For each item
+### For each item
 //For each grade (int type) in (:) quizGrades
 for (Integer grade : quizGrades){
     System.out.println(grade);
 }
+```
 
-#Passing an Array List into a method
+### Passing an Array List into a method
+
+
+```Java
 public int getAverage(ArrayList<Integer>){
 
 }
+```
 
-#Hashmaps
+### Hashmaps
+```Java
 import java.util.HashMap;
 //Option for HashMap Types: <String>, <Integer>, <Boolean>
 HashMap<String, Integer> myFriends = new HashMap<String, Integer>();
 
-#Hashmap manipulation
+```
+### Hashmap manipulation
+```Java
 myFriends.put("Bob", 25);
 myFriends.put("Jane", 32);
 myFriends.put("Zeno", 45);
 
-#Access Hashmap
+```
+### Access Hashmap
+```Java
 System.out.println( myFriends.get("Zenas") );
+```
 
-#Iterating through Hashmap
+### Iterating through Hashmap
+```Java
 System.out.println( myFriends.size() );
 //keySet for Hashmaps (Returns keys)
 for (String name : myFriends.keySet()) {
@@ -186,3 +238,5 @@ for (String name : myFriends.keySet()) {
     System.out.println(name + " is age: " + myFriends.get(name));
 
 }
+
+```
