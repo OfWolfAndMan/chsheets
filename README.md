@@ -2,23 +2,23 @@
 Current cheatsheet listing:
 
 - [Mac OS Hardening](MacOS-hardening)
-- [Docker](docker-basic)
+- [Docker](docker-basic.md)
 - [Vagrant](vagrant-basic)
 - Jenkins
     + [basic](jenkins-basic)
     + [pipeline execution](jenkins-pipeline-execution)
     + [plugins](jenkins-plugins)
-- [Linux](linux-basic)
+- [Linux](linux-basic.md)
 - [Redteam Shell](redteam-shell)
 - [Windows Hardening](windows-hardening)
 - [F5 BIG-IP](F5-BIG-IP-LTM)
 - Python
-    + [Basic](python-basic)
+    + [Basic](python-basic.md)
     + [Regex](python-regex)
     + [Big Data](python-bigdata)
     + [Optimizations](python-optimizations)
-    + [Pandas](Pandas-Examples)
-- [Java](java-basic)
+    + [Pandas](Pandas-Examples.md)
+- [Java](java-basic.md)
 - [Ansible Networking](ansible-network.yml)
 
 ## Future Development
