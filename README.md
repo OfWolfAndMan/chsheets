@@ -15,6 +15,7 @@ Current cheatsheet listing:
 - [F5 BIG-IP](F5-BIG-IP-LTM.md)
 - [Basic SQL](sql-basic.md)
 - [PostGreSQL](postgresql.md)
+- [RabbitMQ](rabbitmq.md)
 - Python
     + [Basic](python-basic.md)
     + [Regex](python-regex)
