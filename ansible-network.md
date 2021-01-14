@@ -214,3 +214,16 @@ https://github.com/ipspace/NetOpsWorkshop/tree/master/tools/ssh-keys
       commands: show arp
       authorize: yes
 ```
+### Build config snippets
+```YAML
+- name: BUILD CONFIG SNIPPETS
+  template:
+    src: "{{ item }}"
+    dest: "./outputs/{{ inventory_hostname }}/partials/{{ item | basename | splitext | first }}.cfg"
+  with_first_found:
+    - files: "{{ file }}"
+      paths:
+        - "./templates/{{ os }}/{{ platform }}/{{ family }}/"
+        - "./templates/{{ os }}/{{ platform }}/main/"
+        - "./templates/{{ os }}/main/"
+```
