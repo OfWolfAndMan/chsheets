@@ -3,3 +3,5 @@ $
 tests/__pycache__
 tests/.pytest_cache
 *.DS_Store
+.vscode/
+*.ipynb
