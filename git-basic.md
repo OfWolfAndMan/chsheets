@@ -1,3 +1,9 @@
+## Trust SSH key from Github
+
+```
+ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+```
+
 ## Clone an existing repository
 
 ```
