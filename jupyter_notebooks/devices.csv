@@ -1,0 +1,6 @@
+device_hostname, mgmt_ip, vendor, network_os, model
+router-1, 12.23.34.45, Cisco, IOS-XE, ASR-1002X
+router-2, 23.34.45.56, Cisco, IOS-XE, ISR-4431
+switch-1, 11.22.33.44, Cisco, IOS-XE, Catalyst-3650
+switch-2, 11.23.34.45, Cisco, IOS-XE, Catalyst-3650
+switch-3, 12.23.34.45, Cisco, NX-OS, Nexus-3200
