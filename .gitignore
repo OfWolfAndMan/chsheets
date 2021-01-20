@@ -5,3 +5,4 @@ tests/.pytest_cache
 *.DS_Store
 .vscode/
 *.ipynb
+*/.ipynb_checkpoints/
