@@ -246,3 +246,8 @@ for ip in $(seq 1 254); do
 done
 ```
 
+### Find all files within a directory recursively with a specific extension
+
+```Shell
+find $directory -type f -name "*.in"
+```
