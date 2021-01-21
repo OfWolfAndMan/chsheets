@@ -227,3 +227,60 @@ https://github.com/ipspace/NetOpsWorkshop/tree/master/tools/ssh-keys
         - "./templates/{{ os }}/{{ platform }}/main/"
         - "./templates/{{ os }}/main/"
 ```
+
+### Get Hardware inventory of devices
+
+```YAML
+- name: GET FACTS
+    hosts: ROUTER
+    gather_facts: false
+    vars:
+        creds:
+            username: admin
+            password: admin
+
+    tasks:
+        - name: create file 
+            file:    
+              dest: /etc/ansible/backup/inventory.json
+              state: touch 
+            delegate_to: localhost 
+            run_once: true
+        - ios_facts:
+            gather_subset:
+              - hardware
+            register: facts
+    
+        - name: append 
+            lineinfile: 
+              path: /tmp/foo 
+              line: "{{ output }}" 
+              insertafter: EOF 
+            delegate_to: localhost
+```
+
+### Get additional facts from network router
+
+```YAML
+- name: GET FACTS
+  hosts: R1
+  vars:
+    creds:
+      host: 10.10.10.1
+      username: admin
+      password: admin
+   
+  tasks:
+    - ios_facts:
+        provider: "{{ creds }}"
+      tags: facts_only
+
+    - debug:
+        var: ansible_net_model
+        var: ansible_net_version
+        var: ansible_net_hostname
+        var: ansible_net_serialnum
+        register: config
+    - name: save output to /etc/ansible/backups 
+        copy: content="{{ config.stdout[0] }}" dest=/etc/ansible/backups/show_run_{{ inventory_hostname }}.txt"
+```
