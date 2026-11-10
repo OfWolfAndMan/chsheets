@@ -51,7 +51,16 @@ DOC_NETS = [
 ]
 IP_RE = re.compile(r"\b(?:\d{1,3}\.){3}\d{1,3}\b")
 
-TEXT_EXT = {".md", ".org", ".txt", ".sh", ".py", ".yml", ".yaml", ".conf", ".cfg", ".json"}
+# .ipynb and .csv are text formats that routinely carry paths, addresses and hardware
+# data in cell source and in execution output; omitting them produced a silent
+# false-negative clean report. .rst joins them for the same reason.
+TEXT_EXT = {
+    ".md", ".org", ".txt", ".sh", ".py", ".yml", ".yaml", ".conf", ".cfg",
+    ".json", ".ipynb", ".csv", ".rst",
+}
+
+# RFC 7042 documentation MAC range: 00-00-5E-00-53-00 .. 00-00-5E-00-53-FF
+DOC_MAC_RE = re.compile(r"^00:00:5e:00:53:[0-9a-f]{2}$", re.IGNORECASE)
 
 
 def classify_ip(text):
@@ -95,6 +104,8 @@ def scan_file(path):
                         if name == "email" and (tok.endswith(("example.com", "example.org", "example.net"))
                                                 or tok in ("git@github.com", "user@example.com")):
                             continue
+                        if name == "mac-address" and DOC_MAC_RE.match(tok):
+                            continue
                         sev = "HIGH" if name == "home-path" and m.group(1) not in ("user", "username") else "MEDIUM"
                         findings.append((sev, name, path, n, m.group(0)[:60]))
                 for m in IP_RE.finditer(line):
@@ -135,8 +146,8 @@ def main():
         if sev != "INFO":
             print(f"{sev:8} {kind:16} {path}:{ln}: {sample}")
 
-    print("\n" + "  ".join(f"{k}={v}" for k, v in sorted(counts.items(), key=lambda kv: order[kv[0]]))
-          or "clean")
+    summary = "  ".join(f"{k}={v}" for k, v in sorted(counts.items(), key=lambda kv: order[kv[0]]))
+    print("\n" + (summary or "clean"))
     blocking = counts.get("CRITICAL", 0) + counts.get("HIGH", 0)
     if blocking:
         print(f"BLOCKED: {blocking} finding(s) at CRITICAL/HIGH — do not publish.")

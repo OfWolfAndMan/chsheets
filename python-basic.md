@@ -134,7 +134,7 @@ base = Path("/var/log")
 for entry in base.glob("*.log"):     # read side works as an ordinary user
     print(entry.name, entry.stat().st_size)
 
-work = Path(tempfile.gettempdir()) / "cicero-example"
+work = Path(tempfile.gettempdir()) / "demo-app"
 target = work / "app" / "app.log"    # the / operator joins paths
 target.parent.mkdir(parents=True, exist_ok=True)
 target.write_text("done\n", encoding="utf-8")
