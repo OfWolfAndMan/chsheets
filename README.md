@@ -36,7 +36,7 @@ Status is `unverified` until someone runs the commands against a stated version.
 | [jenkins.md](jenkins.md) | Jenkins — install, agents, declarative pipelines, libraries, credentials | unverified |
 | [linux-basic.md](linux-basic.md) | Linux command reference — services, networking, firewall, storage, logs | verified |
 | [opensearch.md](opensearch.md) | OpenSearch — install, cluster health, indices, ingest, security | partial |
-| [pandas-examples.md](pandas-examples.md) | pandas recipes | unverified |
+| [pandas-examples.md](pandas-examples.md) | pandas 2.x — loading, selecting, grouping, joining, time series | verified |
 | [postgresql.md](postgresql.md) | PostgreSQL 18 — roles, psql, schema, indexes, backup, plus a SQL refresher | verified |
 | [python-basic.md](python-basic.md) | Python — environments, language core, typing, pathlib, async, testing | verified |
 | [python-regex.md](python-regex.md) | Regex in Python, including network-output parsing | unverified |
