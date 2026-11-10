@@ -139,7 +139,7 @@ sleep time: 5, unit: 'MINUTES'
 timeout(time:15, unit:'SECONDS') {
     waitUntil {
        def ret = sh returnStatus: true, 
-         script: 'test -e /home/jenkins2/marker.txt'
+         script: 'test -e /var/jenkins_home/marker.txt'
        return (ret == 0)
     }
 
@@ -209,12 +209,12 @@ finally {
        failure {
           echo "Build failed"
           mail body: 'build failed', subject: 'Build failed!',
-             to: 'devops@company.com'
+             to: 'devops@example.com'
         }
         success {
           echo "Build succeeded"
           mail body: 'build succeeded', subject: 'Build Succeeded',
-             to: 'devops@company.com'
+             to: 'devops@example.com'
         }
     }
 } // end pipeline
@@ -227,7 +227,7 @@ pipeline {
   }
   post {
     always {
-       mail to: 'blob@gmail.org',
+       mail to: 'ci@example.com',
           subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
           body: "${env.BUILD_URL} has result ${currentBuild.result}"
     }
@@ -245,10 +245,10 @@ pipeline {
     compressLog: true,
     recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
      [$class: 'RequesterRecipientProvider']],
-    replyTo: 'do-not-reply@company.com', 
+    replyTo: 'do-not-reply@example.com', 
     subject: "Status: ${currentBuild.result?:'SUCCESS'} - 
     Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'", 
-    to: 'devops@example.com devops@domain.com'
+    to: 'devops@example.com'
 
 ### LIBRARIES ### ****************************************************
 #Import a library

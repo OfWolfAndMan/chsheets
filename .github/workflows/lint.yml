@@ -1,0 +1,22 @@
+name: lint
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  scrub:
+    name: SHIELD scrub and fence syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install optional linters
+        run: pip install pyyaml
+      - name: Secret and personal-data scan
+        run: python3 scripts/shield_lint.py
+      - name: Fenced-block syntax check
+        run: python3 scripts/fence_lint.py || true   # advisory until Phase 1 fix pass

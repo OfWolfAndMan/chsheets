@@ -46,7 +46,7 @@ Data node 1 -
 cluster.name: playground
 node.name: data-1
 network.host: [_local_, _site_]
-discovery.seed_hosts: ["172.31.116.224"]
+discovery.seed_hosts: ["192.0.2.10"]
 cluster.initial_master_nodes: ["master-1"]
 node.master: false
 node.data: true
@@ -62,7 +62,7 @@ Data node 2 -
 cluster.name: playground
 node.name: data-2
 network.host: [_local_, _site_]
-discovery.seed_hosts: ["172.31.116.224"]
+discovery.seed_hosts: ["192.0.2.10"]
 cluster.initial_master_nodes: ["master-1"]
 node.master: false
 node.data: true

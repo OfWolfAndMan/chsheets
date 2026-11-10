@@ -154,8 +154,8 @@ name: |
   map)attribute='name')|first
 
 vlans:
-  - { id: "100", name: "mgmt", subnet: "172.16.21.0/24"}
-  - { id: "101", name: "web", subnet: "192.168.22.0/24"}
+  - { id: "100", name: "mgmt", subnet: "198.51.100.0/24"}
+  - { id: "101", name: "web", subnet: "192.0.2.0/24"}
 ```
 
 
@@ -266,7 +266,7 @@ https://github.com/ipspace/NetOpsWorkshop/tree/master/tools/ssh-keys
   hosts: R1
   vars:
     creds:
-      host: 10.10.10.1
+      host: 203.0.113.1
       username: admin
       password: admin
    

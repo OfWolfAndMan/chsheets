@@ -15,7 +15,7 @@ module switches {
   //   type inet:ipv4-address;
   // }
   organization "Cisco Systems";
-  contact "someperson@gmail.com";
+  contact "noc@example.com";
   description "Module to Model switches. Lab for Cisco System IT NSO Training.";
   //Defines the revision
   revision 2018-09-19 {
