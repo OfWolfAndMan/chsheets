@@ -50,6 +50,7 @@ DOC_NETS = [
     ipaddress.ip_network("2001:db8::/32"),    # documentation v6
 ]
 IP_RE = re.compile(r"\b(?:\d{1,3}\.){3}\d{1,3}\b")
+DENY_TERMS = []   # populated in main() from the workstation deny list
 
 # .ipynb and .csv are text formats that routinely carry paths, addresses and hardware
 # data in cell source and in execution output; omitting them produced a silent
@@ -86,6 +87,26 @@ def classify_ip(text):
     return "MEDIUM", "public address (verify it is not yours)"
 
 
+DENY_PATHS = [
+    os.environ.get("SHIELD_DENY_FILE", ""),
+    os.path.expanduser("~/.config/cicero/shield-deny.txt"),
+]
+
+
+def load_deny():
+    """Personal identifiers kept outside the repository, one per line, '#' comments.
+
+    A deny list stored inside the repository would itself contain the strings it
+    exists to prevent, which is why this lives on the workstation instead.
+    """
+    for path in DENY_PATHS:
+        if path and os.path.isfile(path):
+            with open(path, encoding="utf-8") as f:
+                return [line.strip().lower() for line in f
+                        if line.strip() and not line.startswith("#")]
+    return []
+
+
 def scan_file(path):
     findings = []
     try:
@@ -95,6 +116,10 @@ def scan_file(path):
                     line = line[:4000]
                 if "noqa: shield" in line:
                     continue
+                low = line.lower()
+                for term in DENY_TERMS:
+                    if term in low:
+                        findings.append(("CRITICAL", "denied-identifier", path, n, term[:40]))
                 for name, pat in SECRET_PATTERNS:
                     for m in re.finditer(pat, line):
                         findings.append(("CRITICAL", name, path, n, m.group(0)[:60]))
@@ -127,6 +152,8 @@ def tracked_files(staged=False):
 
 
 def main():
+    global DENY_TERMS
+    DENY_TERMS = load_deny()
     ap = argparse.ArgumentParser()
     ap.add_argument("--staged", action="store_true", help="scan only staged files")
     ap.add_argument("paths", nargs="*")

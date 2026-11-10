@@ -41,6 +41,12 @@ Nothing committed here may expose real infrastructure or real people. That means
 Credentials belong in a secret manager, never in a file that git remembers — and
 redacting them later does not work, because the history keeps them forever.
 
+A deny list of personal identifiers lives on the workstation, not in the repository —
+`~/.config/cicero/shield-deny.txt`, one term per line, or the path in `$SHIELD_DENY_FILE`.
+It is deliberately outside the tree: a list inside the repo would itself contain the
+strings it exists to keep out. `shield_lint.py` loads it when present and treats any
+match as CRITICAL.
+
 Run the scrub before you push:
 
 ```bash
