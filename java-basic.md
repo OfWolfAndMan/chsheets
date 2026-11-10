@@ -2,57 +2,58 @@
 
 ### Define a integer
 
-```Java
+```java
 int myNumber = 1;
 ```
+
 ### Define a boolean
 
-```Java
+```java
 bool myBool = true;
 ```
 
 ### Define a single character
 
-```Java
+```java
 char myChar = "A"
 ```  
 
-### Define 
+### Define
+
 ### Write a comment
 
-```Java
+```java
 // Here's a comment
 ```
 
 ### Multiline comment
 
-
 ## OPERATORS
 
 ### And operator
 
-```Java
+```java
 System.out.println(true && true);
 //prints true
 ```
 
 ### Or operator
 
-```Java
+```java
 System.out.println(true || false);
 //prints true
 ```
 
 ### Not operator
 
-```Java
+```java
 System.out.println( !(4 <= 10) );
 //prints false
 ```
 
 ### Order of operations
 
-```Java
+```java
 // 1. ! 2. && 3. ||
 
 boolean riddle = !( 1 < 8 || (5 > 2 && 3 < 5));
@@ -64,7 +65,7 @@ System.out.println(riddle);
 
 ### If-then-else statement
 
-```Java
+```java
 int round;
 
 if (round > 12) {
@@ -77,16 +78,16 @@ if (round > 12) {
 
     System.out.println("The match is underway!");
 
-}	else {
+} else {
 
     System.out.println("The boxing match hasn't started yet.");
 
 }
-```	
+```
 
 ### Ternary Conditional
 
-```Java
+```java
 //Results in 'Y'
 int fuelLevel = 3;
 
@@ -96,7 +97,7 @@ System.out.println(canDrive);
 
 ### Switch statement
 
-```Java
+```java
 //Results in default case
 char penaltyKick = 'X';
 
@@ -117,7 +118,7 @@ switch (penaltyKick) {
 
 ### Classes
 
-```Java
+```java
 //Inheritance used with "extends" statement
 class Car extends Vehicle{
     //Instance Variable
@@ -148,7 +149,7 @@ class Car extends Vehicle{
         System.out.println(myFastCarAge);
         //Applies inherited method
         myFastCar.checkBatteryStatus();
-	}
+ }
 }
 
 class Vehicle {
@@ -163,7 +164,7 @@ class Vehicle {
 
 ### For Loop
 
-```Java
+```java
 for (int counter = 0; counter < 5; counter++) {
 
     System.out.println("The counter value is: " + counter);
@@ -173,7 +174,7 @@ for (int counter = 0; counter < 5; counter++) {
 
 ### Array Lists
 
-```Java
+```java
 import java.util.ArrayList;
 ArrayList<Integer> quizGrades = new ArrayList<Integer>();
 
@@ -203,34 +204,39 @@ for (Integer grade : quizGrades){
 
 ### Passing an Array List into a method
 
-
-```Java
+```java
 public int getAverage(ArrayList<Integer>){
 
 }
 ```
 
 ### Hashmaps
-```Java
+
+```java
 import java.util.HashMap;
 //Option for HashMap Types: <String>, <Integer>, <Boolean>
 HashMap<String, Integer> myFriends = new HashMap<String, Integer>();
 
 ```
+
 ### Hashmap manipulation
-```Java
+
+```java
 myFriends.put("Bob", 25);
 myFriends.put("Jane", 32);
 myFriends.put("Zeno", 45);
 
 ```
+
 ### Access Hashmap
-```Java
+
+```java
 System.out.println( myFriends.get("Zenas") );
 ```
 
 ### Iterating through Hashmap
-```Java
+
+```java
 System.out.println( myFriends.size() );
 //keySet for Hashmaps (Returns keys)
 for (String name : myFriends.keySet()) {

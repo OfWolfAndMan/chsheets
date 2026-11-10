@@ -95,6 +95,12 @@ def main(paths):
                 if not key or not code.strip():
                     stats["skipped"] += 1
                     continue
+                # Template blocks use <angle-bracket> placeholders by convention and
+                # cannot be executed as written. Count them; do not fail them.
+                if key == "bash" and re.search(r"<[A-Za-z][^<>\n]{0,40}>", code):
+                    stats.setdefault("templates", 0)
+                    stats["templates"] += 1
+                    continue
                 ok, msg = CHECKS[key](code)
                 stats["checked"] += 1
                 if ok is False:
@@ -114,6 +120,7 @@ def main(paths):
                 seen[key] = True
     print(f"\n{stats['files']} files, {stats['blocks']} fenced blocks: "
           f"{stats['checked']} syntax-checked, {stats['unlabelled']} unlabelled, "
+          f"{stats.get('templates', 0)} template (placeholders), "
           f"{stats['skipped']} unchecked (other languages)")
     print(f"{findings} finding(s)")
     return 1 if findings else 0

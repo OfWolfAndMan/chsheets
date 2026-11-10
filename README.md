@@ -7,7 +7,7 @@ Short, command-first, and — since 2026 — actually checked.
 ## Status
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | Content last verified | **never** (audit 2026-11-10) |
 | Sheets | 21 markdown, 7 notebooks |
 | Dormant | 2021-01-21 → 2026-11-10 |
@@ -22,7 +22,7 @@ version on a stated date.
 ## Sheets
 
 | Sheet | Covers |
-|---|---|
+| --- | --- |
 | [ansible-network.md](ansible-network.md) | Ansible for network devices: show commands, config push, output capture |
 | [cumulus-vx.md](cumulus-vx.md) | Cumulus VX / NVIDIA Cumulus Linux lab commands |
 | [docker-basic.md](docker-basic.md) | Docker and Compose basics |
@@ -51,7 +51,7 @@ version on a stated date.
 Removed in the 2026 modernisation pass, with the reason. Git history keeps them.
 
 | File | Reason |
-|---|---|
+| --- | --- |
 | `artifactory` | Empty since 2021-01-19 — a blank page presented as a sheet |
 | `gradle.md` | Five lines containing a Java "Hello World"; never contained Gradle content |
 | `salt-basic.md` | Salt dropped from the toolkit; Ansible is the automation standard here |

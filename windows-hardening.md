@@ -5,22 +5,23 @@
 """
 
 ### TOOLS ###
+
 - Keepass: A historically secure password manager
-  https://keepass.info/
+  <https://keepass.info/>
 
 - Avast: A free antivirus program
-  https://www.avast.com/en-us/mac
+  <https://www.avast.com/en-us/mac>
 
 - Veracrypt: A program to encrypt non-system partitions/drives
-  https://archive.codeplex.com/?p=veracrypt
+  <https://archive.codeplex.com/?p=veracrypt>
 
 - Virtualbox: A free virtualization option
-  https://www.virtualbox.org/wiki/Downloads
+  <https://www.virtualbox.org/wiki/Downloads>
 
 - Vmware Workstation: A more feature-rich (Non-free) virtualization option
-  https://www.vmware.com/products/workstation-pro.html
+  <https://www.vmware.com/products/workstation-pro.html>
 
 - Simple DNSCrypt: A method of encrypting your DNS queries
-  https://github.com/bitbeans/SimpleDnsCrypt
+  <https://github.com/bitbeans/SimpleDnsCrypt>
 
 - Proxifier: Can create a chain of proxies. Supports SOCKS protocol (4, 4a, 5)

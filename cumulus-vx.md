@@ -1,27 +1,32 @@
 ### Show interfaces
-```Shell
+
+```shell
 net show interface
 ```
 
 ### Enter quagga command line
-```Shell
+
+```shell
 sudo vtysh
 ```
 
 ### Enable OSPF/BGP
-```Shell
+
+```shell
 nano /etc/frr/daemons
 #Zebra MUST be set to yes
 ```
 
 ### Enable the service (After options set to yes)
-```Shell
+
+```shell
 sudo systemctl enable frr.service
 sudo systemctl start frr.service
 ```
 
 ### Configure OSPF (Must be enabled in FRR)
-```Shell
+
+```shell
 net add ospf router-id <router-id>
 net add ospf network <network>/<mask> area <area id>
 net add ospf passive-interface <interface>

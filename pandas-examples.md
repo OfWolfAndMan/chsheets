@@ -1,67 +1,83 @@
 ### Add Pandas
-```Python
+
+```python
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 ```
-### Inputs output directly into notebook
-%matplotlib inline 
 
+### Inputs output directly into notebook
+
+%matplotlib inline
 
 ### Reads CSV file from Pandas
-```Python
+
+```python
 pd.read_csv('file | url')
 ```
+
 ### Gives a number of omitted values per column
-```Python
+
+```python
 drinks.isnull().sum()
 ```
+
 ### Selecting a specific column
-```Python
-drinks.continent OR drinks['continent']
+
+```python
+drinks['continent']      # or: drinks.continent
 ```
 
 ### Show the first five rows
-```Python
+
+```python
 drinks.head()
 ```
 
 ### Shows the first five rows, including two specific columns
-```Python
-drinks[['country', 'beer_servings]].head()
+
+```python
+drinks[['country', 'beer_servings']].head()
 ```
 
 ### Show the last five rows
-```Python
+
+```python
 drinks.tail()
 ```
 
 ### Describes the numeric columns (Meant values, counts, min and max, etc)
-```Python
+
+```python
 drinks.describe()
 ```
 
 ### Gets the various column names
-```Python
+
+```python
 drinks.columns()
 ```
 
 ### Shows the number of rows and columns in a dataset
-```Python
+
+```python
 drinks.shape
 ```
 
 ### Show the number of null values for each column
-```Python
+
+```python
 drinks.isnull().sum()
 ```
 
 ### Select all rows where a specific column is null
-```Python
+
+```python
 drinks[drinks['continent'].isnull()]
 ```
 
 ### Get the number of counts for a specific column
-```Python
+
+```python
 drinks.continent.value_counts()
 ```

@@ -1,10 +1,9 @@
 ### Interface Schema
 
-- Mgmt: 
+- Mgmt:
 - 1.1: External
 - 1.2: Internal
 - 1.3: HA
-
 
 ### Default Login
 
@@ -14,9 +13,9 @@
 ### Terminology
 
 - Self IP: An IP Used by the LTM itself
-	* Self IP should be identical in the configuration to the HA device
+  - Self IP should be identical in the configuration to the HA device
 - Floating IP: Used for HA deployments (Similar to HSRP/VRRP)
-	* Floating IP should be the IP specific to the individual box for HA failover
+  - Floating IP should be the IP specific to the individual box for HA failover
 - Node: IP Address
 - Pool Member: Node+Service Port
 - Pool: Related Pool Members for load balancing
@@ -35,7 +34,6 @@
 - UDP 520 (RIP)
 - UDP 1026 (Network Failover)
 
-
 ### Adding Servers
 
 **Nodes**
@@ -52,16 +50,15 @@
 - Service Port
 - Default Pool: Pool that was assigned in the pools tab
 
-
 **Load Balancing Methods**
 
 Static
-  - Round Robin
-    * Doesn't take into account specific events
-  - Ratio
-    * Member
-    * Node
-Dynamic
-  -
-  -
 
+- Round Robin
+  - Doesn't take into account specific events
+- Ratio
+  - Member
+  - Node
+Dynamic
+-
+-
