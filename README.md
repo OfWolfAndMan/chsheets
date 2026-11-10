@@ -8,8 +8,8 @@ Short, command-first, and — since 2026 — actually checked.
 
 | Field | Value |
 | --- | --- |
-| Content last verified | **never** (audit 2026-11-10) |
-| Sheets | 16 markdown, 7 notebooks |
+| Content last verified | 2026-11-10 — 11 verified by execution, 3 partial, 6 unverified |
+| Sheets | 20 markdown, 7 notebooks |
 | Dormant | 2021-01-21 → 2026-11-10 |
 | CI | fence + secret lint on push |
 | Licence | MIT (code) / CC BY-SA 4.0 (prose) |
@@ -32,6 +32,7 @@ Status is `unverified` until someone runs the commands against a stated version.
 | [docker-basic.md](docker-basic.md) | Docker and Compose — images, containers, multi-stage builds, healthchecks | partial |
 | [f5-bigip-ltm.md](f5-bigip-ltm.md) | F5 BIG-IP LTM — `tmsh` essentials | unverified |
 | [git-basic.md](git-basic.md) | git — everyday commands, the undo ladder, rebase, worktrees | verified |
+| [github-actions.md](github-actions.md) | GitHub Actions — workflows, matrix builds, caching, secrets, permissions | verified |
 | [java-basic.md](java-basic.md) | Java — language core, records, streams, modern switch, virtual threads | verified |
 | [jenkins.md](jenkins.md) | Jenkins — install, agents, declarative pipelines, libraries, credentials | unverified |
 | [linux-basic.md](linux-basic.md) | Linux command reference — services, networking, firewall, storage, logs | verified |
@@ -42,6 +43,8 @@ Status is `unverified` until someone runs the commands against a stated version.
 | [python-regex.md](python-regex.md) | Regex in Python, including network-output parsing | unverified |
 | [rabbitmq.md](rabbitmq.md) | RabbitMQ — vhosts, users, queues, exchanges, bindings, management API | verified |
 | [redteam-shell.md](redteam-shell.md) | Offensive shell one-liners | unverified |
+| [tailscale.md](tailscale.md) | Tailscale — status, file transfer, serve, ssh, ACLs, exit nodes | verified |
+| [terraform.md](terraform.md) | Terraform — init/plan/apply, state, modules, variables, and the OpenTofu fork | verified |
 | [windows.md](windows.md) | Windows client and server — hardening baseline, registry, networking, updates | unverified |
 | [yang-models-basic.md](yang-models-basic.md) | YANG — module structure, pyang validation, and the two lab modules from the NSO course | verified |
 | [jupyter_notebooks/](jupyter_notebooks/) | Seven notebooks: pandas, regex, lists, dicts, optimisations | unverified |
@@ -65,13 +68,13 @@ Removed in the 2026 modernisation pass, with the reason. Git history keeps them.
 ## Roadmap
 
 1. **Hygiene and verification harness** — links, licences, front matter, CI,
-   secret scanning. *(in progress)*
-2. **Rewrite by wrongness** — the sheets whose content has gone stale: ELK, Docker,
-   Linux, Ansible networking, Python, Java.
-3. **New sheets for the current stack** — systemd, nftables, Ansible (rewritten),
-   Terraform, PostgreSQL administration, CI.
-4. **Retire the rest** — anything that cannot be made true again is deleted rather
-   than left to mislead.
+   secret scanning. *(done 2026-11-10)*
+2. **Rewrite by wrongness** — ELK, Docker, Linux, Ansible networking, Python, Java.
+   *(done 2026-11-10; ELK became OpenSearch)*
+3. **New sheets for the current stack** — systemd and nftables (inside `linux-basic`),
+   Tailscale, Terraform, GitHub Actions. *(done 2026-11-10)*
+4. **Retire the rest** — four sheets were removed rather than left to mislead;
+   five carry `unverified` status with the reason stated. *(ongoing)*
 
 ## Contributing
 
