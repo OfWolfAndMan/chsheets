@@ -64,9 +64,9 @@ def classify_ip(text):
             return "INFO", "documentation range (fine)"
     if ip.is_unspecified or str(ip) in ("8.8.8.8", "1.1.1.1", "9.9.9.9"):
         return "INFO", "well-known/any-address (fine in examples)"
+    if ip in ipaddress.ip_network("100.64.0.0/10"):   # noqa: shield  (pattern definition)
+        return "HIGH", "CGNAT / tailnet address"
     if ip.is_private:
-        if ip in ipaddress.ip_network("100.64.0.0/10"):
-            return "HIGH", "CGNAT / tailnet address"
         return "HIGH", "RFC1918 private address"
     if ip.is_loopback or ip.is_link_local or ip.is_unspecified:
         return "INFO", "loopback/link-local (usually fine)"
@@ -82,6 +82,8 @@ def scan_file(path):
             for n, line in enumerate(f, 1):
                 if len(line) > 4000:
                     line = line[:4000]
+                if "noqa: shield" in line:
+                    continue
                 for name, pat in SECRET_PATTERNS:
                     for m in re.finditer(pat, line):
                         findings.append(("CRITICAL", name, path, n, m.group(0)[:60]))
