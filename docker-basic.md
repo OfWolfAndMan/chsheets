@@ -1,236 +1,191 @@
 ---
 title: Docker
-summary: Docker and Compose basics
+summary: Docker and Compose — images, containers, multi-stage builds, healthchecks
 tags: [containers, docker, compose]
-tooling: [docker, docker compose]
-verified_on: null
-verified_env: null
-status: unverified
+tooling: [docker, docker compose, buildx]
+verified_on: 2026-11-10
+verified_env: Docker 29.9.3, Compose 5.7.0 — CLI and compose config executed; the Dockerfile was reviewed but not built
+status: partial
 ---
 
 # Docker
 
-**Remove all docker containers created on your machine**
+Verified against Docker 29.9.3 and Compose 5.7.0. The interface in older material —
+`docker-compose` as a separate binary — is now a subcommand: `docker compose`. The
+hyphenated binary still exists as a compatibility shim, but every command below uses
+the plugin form.
+
+## Images
 
 ```bash
-for var in $(docker ps -a | awk 'NR!=1{print$1}'); do docker rm $var; done
+docker pull alpine:3.21              # always pin a tag that is not :latest in production
+docker images                        # local images
+docker image inspect alpine:3.21 --format '{{.Id}} {{.Config.Cmd}}'
+docker history --no-trunc <image>
+docker rmi <image>
+docker image prune                   # dangling images only
 ```
 
-**Snapshot a container**
+## Containers
 
 ```bash
-docker ps (Show docker containers that have been stopped with -f "status=exited")
-docker commit `<container id>` `<snapshot name>`
-docker run -t -i `<snapshot name>` `<command in container>` -p `<port number>` -d
+docker run --rm -it alpine:3.21 sh                 # throwaway, interactive
+docker run -d --name web -p 8080:80 nginx:1.27     # detached, port published
+docker run --rm -v "$PWD":/work -w /work alpine:3.21 ls -la
+docker ps                                          # running
+docker ps -a --format 'table {{.Names}}\t{{.Status}}\t{{.Image}}'
+docker logs -f --tail 50 <container>
+docker exec -it <container> sh
+docker inspect <container> --format '{{.State.Health.Status}}'
+docker stop <container> && docker rm <container>
+docker stats --no-stream
 ```
 
-**Build multi-container applications**
+`--rm` on one-shot containers is not optional housekeeping; it is the difference
+between a clean machine and a graveyard of exited containers.
+
+## Ports and networking
 
 ```bash
-docker-compose build up
-```
-
-**Stop and remove docker compose containers**
-
-```bash
-docker-compose down
-```
-
-**Verify Docker installed correctly**
-
-```bash
-docker run hello-world
-```
-
-**Show docker images (Already built)**
-
-```bash
-docker images
-```
-
-**Build Docker image**
-
-```bash
-docker build -t `<image-name>` `<Dockerfile path>`
-```
-
-**Rebuild Docker Image (Docker Compose)**
-
-```bash
-docker-compose build
-```
-
-**Remove snapshot**
-
-```bash
-docker rmi `<snapshot name>`
-```
-
-**Cleanup dangling docker images**
-
-```bash
-docker rmi -f $(docker images -qf dangling=true)
-```
-
-**Rename docker container**
-
-```bash
-docker rename `<current_name>` `<new_name>`
-```
-
-**Start container using imagename**
-
-```bash
-docker start $(docker ps -a | grep `<image_name>` | awk '{ print $1 }')
-```
-
-**Stopping a docker instance/compose**
-
-```bash
-docker stop `<container id>`
-docker-compose stop (Same directory as docker compose)
-```
-
-**Cleanup dangling containers**
-
-```bash
-docker rmi -f $(docker images -qf dangling=true)
-```
-
-**Run a command inside of the container**
-
-```bash
-docker exec -it $(docker container ls -l --format "{{.Names}}") \
-   `<insert shell command here>`
-```
-
-**Enter shell**
-
-```bash
-docker exec -it `<image id>`
-```
-
-**Get Docker container IP**
-
-```bash
-docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' `<container-name-or-id>`
-```
-
-**Get details for a specific container**
-
-```bash
-docker inspect `<container id>`
-```
-
-**Look at properties of container**
-
-```bash
-docker container inspect `<Container name>`
-```
-
-**Display current networks**
-
-```bash
+docker run -d --name web -p 127.0.0.1:8080:80 nginx:1.27   # loopback only
 docker network ls
+docker network create appnet
+docker run -d --name api --network appnet alpine:3.21 sleep 3600
+docker network inspect appnet --format '{{range .Containers}}{{.Name}} {{end}}'
 ```
 
-**Look at network properties for a particular network**
+Name resolution works by container name inside a user-defined network; the default
+bridge network does not provide it. Publishing to `127.0.0.1` instead of `0.0.0.0`
+is the difference between a dev service and an exposed one.
+
+## Volumes
 
 ```bash
-docker network inspect bridge
+docker volume create appdata
+docker run --rm -v appdata:/data alpine:3.21 sh -c 'echo hi > /data/x && cat /data/x'
+docker volume ls
+docker volume inspect appdata
+docker volume rm appdata
 ```
 
-**Stop all docker containers running**
+Bind mounts (`-v /host/path:/container/path`) share the host filesystem; named volumes
+are managed by Docker and survive `docker rm`. Data written into a container's own
+filesystem dies with the container.
+
+## Images from a Dockerfile
+
+```dockerfile
+FROM python:3.13-slim AS build
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+FROM python:3.13-slim
+WORKDIR /app
+COPY --from=build /usr/local/lib/python3.13/site-packages /usr/local/lib/python3.13/site-packages
+COPY . .
+RUN useradd --create-home appuser
+USER appuser
+EXPOSE 8000
+HEALTHCHECK --interval=30s --timeout=3s CMD python -c "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/health')"
+CMD ["python", "-m", "http.server", "8000"]
+```
 
 ```bash
-docker stop $(docker ps -a -q)
+docker build -t demo:0.1 .
+docker build --build-arg VERSION=0.1 -t demo:0.1 .
+docker run --rm demo:0.1
 ```
 
-**Remove all docker containers**
+Multi-stage builds keep compilers and build caches out of the shipped image. `USER`
+before `CMD` means the process does not run as root; `HEALTHCHECK` is what lets an
+orchestrator tell "running" from "working".
 
-```bash
-docker rm $(docker ps -a -q)
-```
-
-## Docker File example
-
-**Base image**
-
-```dockerfile
-FROM python:`<Python version>`
-MAINTAINER Example Maintainer `<dev@example.com>`
-
-ENV INSTALL_PATH /`<install path name>`
-```
-
-**Copies local files into the container**
-
-```dockerfile
-COPY requirements.txt requirements.txt
-```
-
-**Command ran when the image is started**
-
-```dockerfile
-ENTRYPOINT ["ping"]
-```
-
-**Command arguments passed to ping**
-
-```dockerfile
-CMD ["8.8.8.8", "-c", "3"]
-```
-
-**Display logs of container in docker**
-
-```bash
-docker logs `<container-id>`
-```
-
-**Valid Linux shell command**
-
-```dockerfile
-RUN pip install -r requirements.txt
-```
-
-**Copies current directory into Docker image**
+`.dockerignore` decides what the build context is — the file that most often makes a
+build slow and an image fat:
 
 ```text
-COPY ..
+.git
+.venv
+__pycache__
+*.log
+node_modules
 ```
 
-**Listen on a specific network port on docker (Default TCP)**
+## Compose
 
-```dockerfile
-EXPOSE `<port>` | `<port>`/`<protocol>`
+```yaml
+# compose.yaml
+services:
+  web:
+    image: nginx:1.27
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./site:/usr/share/nginx/html:ro
 
-CMD gunicorn -b 0.0.0.0:`<port number>` --access-logfile
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    secrets:
+      - db_password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
+
+secrets:
+  db_password:
+    file: ./db_password.txt
 ```
-
-**Exporting a container**
 
 ```bash
-docker export `<container_name>` | gzip `<container_export_name>`.gz
+docker compose up -d
+docker compose ps
+docker compose logs -f web
+docker compose exec web sh
+docker compose config          # validate and see the resolved file
+docker compose down            # keeps volumes
+docker compose down -v         # deletes volumes too
 ```
 
-**Importing a container**
+`depends_on` with `condition: service_healthy` waits for the healthcheck rather than
+merely for the container to start — the difference between a service that works and
+one that races its database on every restart.
+
+Secrets belong in `secrets:` or the environment of the process, never baked into the
+image or committed to `compose.yaml`.
+
+## Cleanup
 
 ```bash
-scp `<container_export_name>`.gz `<docker_user>`@`<docker_ip>`:/home/`<docker_user>`
-zcat `<container_export_name>`.gz | docker import - `<container_name>`
-docker run -i -t `<container_name>` /bin/bash
+docker system df                     # what is actually taking space
+docker container prune
+docker image prune -a                # every image no container uses
+docker builder prune
+docker system prune -a --volumes     # nuclear: removes unused volumes too
 ```
 
-**Run image**
+`--volumes` on `system prune` deletes data you may not have backed up. Read the
+prompt before typing `y`.
 
-```bash
-docker run -d -p `<port:port>` `<image name>` `<image id>`
-```
+## Traps worth remembering
 
-### Run specific container instances
-
-**Artifactory**
-
-```bash
-docker run --name artifactory -d -p 8081:8081 docker.bintray.io/jfrog/artifactory-cpp-ce:latest
-```
+- `latest` is a tag, not a version: a rebuild can change behaviour with no diff in
+  your Dockerfile.
+- A container that exits immediately is usually a foreground process problem — check
+  `docker logs`, not the exit code.
+- Ports published to `0.0.0.0` are reachable from the network; use `127.0.0.1:` for
+  anything local-only.
+- Image size is a security property as well as a speed one: fewer packages, fewer CVEs.
+- `docker exec` into a container to fix something is a diagnostic, not a deployment.
