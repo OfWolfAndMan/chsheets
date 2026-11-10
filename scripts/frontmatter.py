@@ -54,6 +54,18 @@ SHEETS = {
         title="Windows",
         tags=["windows", "security", "network"],
         tooling=["powershell", "reg", "netsh", "sconfig"]),
+    "tailscale.md": dict(
+        title="Tailscale",
+        tags=["network", "vpn", "tailscale", "wireguard"],
+        tooling=["tailscale", "tailscaled"]),
+    "terraform.md": dict(
+        title="Terraform",
+        tags=["iac", "terraform", "opentofu", "cloud"],
+        tooling=["terraform", "opentofu"]),
+    "github-actions.md": dict(
+        title="GitHub Actions",
+        tags=["ci", "github", "automation"],
+        tooling=["github actions", "actionlint", "yq"]),
     "pandas-examples.md": dict(
         title="pandas",
         tags=["python", "data", "pandas"],
