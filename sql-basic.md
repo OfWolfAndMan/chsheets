@@ -1,4 +1,4 @@
-```SQL
+```sql
 create table devices (
     hostname VARCHAR(30) NOT NULL PRIMARY KEY,
     management_ip inet NOT NULL,
@@ -9,7 +9,7 @@ create table devices (
 );
 ```
 
-```SQL
+```sql
 create table credentials (
     name VARCHAR(20) NOT NULL PRIMARY KEY,
     username VARCHAR(20) NOT NULL,

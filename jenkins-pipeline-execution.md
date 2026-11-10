@@ -1,19 +1,25 @@
 ### PIPELINE KEYPOINTS ### ****************************************************
 
 # A user may choose to write a pipeline script locally
+
 # or pull from an SCM source
 
-### TRIGGERS ### ****************************************************
+## TRIGGERS ### ****************************************************
 
-  # Pull strategy
+# Pull strategy
+
     * Reaches out to see if changes in the code
-  # Push strategy
+
+# Push strategy
+
     * Something else notifies Jenkins the code changed 
 
 # Triggers can be implemented in three ways
-  # General Configuration of the Project
 
-  # Scripted Pipeline
+# General Configuration of the Project
+
+# Scripted Pipeline
+
     # Example: Building a Project
     # after other projects are built
     properties([
@@ -35,7 +41,7 @@
     # Example: Poll SCM periodically
     properties([pipelineTriggers([pollSCM('*/30 * * * *')])])
 
-  # Declarative Pipeline
+# Declarative Pipeline
 
     # Example: Build periodically
     triggers { cron(0 9 * * 1-5) 
@@ -47,43 +53,51 @@
     # accessing a specific URL for the given
     # job on the Jenkins system
 
-  # Freestyle project
+# Freestyle project
+
     # Check "Github hook trigger for GITScm polling"
     # Global config should have auth configured
     # Under the settings of the repo, the webhook
     # will show up once the project is created
 
-### USER INPUT ### ****************************************************
+## USER INPUT ### ****************************************************
 
 # Prompt user with message
+
 input 'Continue with the final stage?'
 
 # Give the user a variety of choices
-def choice = input message: '<message>', 
+
+def choice = input message: '`<message>`',
  parameters: [choice(choices: "choice1\nchoice2\nchoice3\nchoice4\n",
  description: 'Choose one of the following options', name: 'Options')]
 
 # Boolean
-def answer = input message: '<message>', 
- parameters: [booleanParam(defaultValue: true, 
+
+def answer = input message: '`<message>`',
+ parameters: [booleanParam(defaultValue: true,
  description: 'Prerelease setting', name: 'prerelease')]
 
 # Choosing a file to use with the pipeline
-def selectedFile = input message: '<message>', 
+
+def selectedFile = input message: '`<message>`',
  parameters: [file(description: 'Choose file to upload', name: 'local')]
 
 # Multiline string
-def lines = input message: '<message>', 
+
+def lines = input message: '`<message>`',
  parameters: [text(defaultValue: '''line 1
  line 2
  line 3''', description: '', name: 'Input Lines')]
 
- # Script block (Used for allowing scripted pipeline syntax
- # in declarative syntax language)
+# Script block (Used for allowing scripted pipeline syntax
+
+# in declarative syntax language)
+
   stage ('Input') {
            steps {  
               script {
-                 def resp = input message: '<message>', 
+                 def resp = input message: '`<message>`',
                   parameters: [string(defaultValue: '',
                   description: 'Enter response 1',
                   name: 'RESPONSE1'), string(defaultValue: '',
@@ -94,16 +108,18 @@ def lines = input message: '<message>',
            }
 }
 
-## Flow control options ##
+## Flow control options
 
 # Use timeout (Limits amount of time your script spends waiting
+
 # for an action to happen)
+
 node {
     def response
     stage('input') {
        timeout(time:10, unit:'SECONDS') {
-          response = input message: 'User', 
-           parameters: [string(defaultValue: 'user1', 
+          response = input message: 'User',
+           parameters: [string(defaultValue: 'user1',
            description: 'Enter Userid:', name: 'userid')]
        }
        echo "Username = " + response
@@ -111,12 +127,13 @@ node {
 }
 
 # Exception handling with timeout
+
 node {
     def response
     stage('input') {
        try {
          timeout(time:10, unit:'SECONDS') {
-            response = input message: 'User', 
+            response = input message: 'User',
              parameters: [string(defaultValue: 'user1',
              description: 'Enter Userid:', name: 'userid')]
          }
@@ -130,15 +147,18 @@ node {
 }
 
 # Retrying the process
-retry(<n>) { // processing }
+
+retry(`<n>`) { // processing }
 
 # Sleeping (Delay step)
+
 sleep time: 5, unit: 'MINUTES'
 
 # Wait until something happens
+
 timeout(time:15, unit:'SECONDS') {
     waitUntil {
-       def ret = sh returnStatus: true, 
+       def ret = sh returnStatus: true,
          script: 'test -e /var/jenkins_home/marker.txt'
        return (ret == 0)
     }
@@ -146,11 +166,13 @@ timeout(time:15, unit:'SECONDS') {
  }
 
 # Stash and unstash
+
 # Allows for saving and retreving files between
+
 # nodes and/or stages in a pipeline
 
 stages {
-   
+
    stage('Source') {
       git branch: 'test', url: 'git@diyv:repos/gradle-greetings'
       stash name: 'test-source', includes: 'build.gradle,src/test/'
@@ -173,6 +195,7 @@ stages {
 }
 
 # Advanced error handling
+
 def err = null
 try {
    // pipeline code
@@ -181,19 +204,21 @@ try {
          ...
       } // end of last stage
    }
-} 
-catch (err) { 
+}
+catch (err) {
    currentBuild.result = "FAILURE"
-} 
+}
 finally {
    (currentBuild.result != "ABORTED"){
-       // Send email notifications for builds that failed 
+       // Send email notifications for builds that failed
        //  or are unstable
    }
 }
 
 # Post-processing
-# Conditions:
+
+# Conditions
+
     # always: Always executes the steps in the block
     # changed: Executed if current build different from previous build
     # success: Executes if current build successful
@@ -220,6 +245,7 @@ finally {
 } // end pipeline
 
 # Sending an email
+
 pipeline {
   agent any
   stages {
@@ -227,106 +253,130 @@ pipeline {
   }
   post {
     always {
-       mail to: 'ci@example.com',
+       mail to: '<ci@example.com>',
           subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
           body: "${env.BUILD_URL} has result ${currentBuild.result}"
     }
   }
 }
-  # SMTP server, default user email suffix, SMTP
-  # authentication defined in global settings
+
+# SMTP server, default user email suffix, SMTP
+
+# authentication defined in global settings
 
 # Send email with attached logs
+
+```groovy
   emailext attachLog: true, body:
-   """<p>EXECUTED: Job <b>\'${env.JOB_NAME}:${env.BUILD_NUMBER})\'
-   </b></p><p>View console output at "<a href="${env.BUILD_URL}"> 
-   ${env.JOB_NAME}:${env.BUILD_NUMBER}</a>"</p> 
-     <p><i>(Build log is attached.)</i></p>""", 
+   """<p>EXECUTED: Job `<b>`\'${env.JOB_NAME}:${env.BUILD_NUMBER})\'
+   </b></p><p>View console output at "<a href="${env.BUILD_URL}">
+   ${env.JOB_NAME}:${env.BUILD_NUMBER}</a>"</p>
+     `<p>``<i>`(Build log is attached.)</i></p>""",
     compressLog: true,
-    recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
+    recipientProviders: [[$class: 'DevelopersRecipientProvider'],
      [$class: 'RequesterRecipientProvider']],
-    replyTo: 'do-not-reply@example.com', 
-    subject: "Status: ${currentBuild.result?:'SUCCESS'} - 
-    Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'", 
-    to: 'devops@example.com'
+    replyTo: '<do-not-reply@example.com>',
+    subject: "Status: ${currentBuild.result?:'SUCCESS'} -
+    Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'",
+    to: '<devops@example.com>'
+```
 
-### LIBRARIES ### ****************************************************
-#Import a library
-import static <Library>
+## LIBRARIES ### ****************************************************
 
-@Library('<libname>[@version]')_ [<import statement>]
-#Version may be tag, branch name, etc
-#Import statement for subsets
-#Import statement not required
-#Underscore only required if no import statement used
+# Import a library
 
-#Load default version of a library
+import static `<Library>`
+
+@Library('`<libname>`[@version]')_ [`<import statement>`]
+
+# Version may be tag, branch name, etc
+
+# Import statement for subsets
+
+# Import statement not required
+
+# Underscore only required if no import statement used
+
+# Load default version of a library
+
 @Library('myLib')
 
-#Load specific version of library
+# Load specific version of library
+
 @Library('yourLib@2.0')
 
-#Access multiple libraries
+# Access multiple libraries
+
 @Library(['myLib', 'yourLib@master'])
 
-#With import statement
+# With import statement
+
 @Library('myLib@1.0') import static org.demo.Utilities.*
 
-#Add some timestamps
+# Add some timestamps
+
 def commandOutput
 timestamps {
-   commandOutput = sh(script: "${<command-to-run>}", 
+   commandOutput = sh(script: "${`<command-to-run>`}",
    returnStdout: true).trim()
 }
 echo commandOutput
 
-
-#Creating a method
+# Creating a method
 
 // org.demo.buildUtils
 package org.demo
-#Defines the method
+
+# Defines the method
+
+```groovy
 def timedGradleBuild(tasks) {
    timestamps {
       sh "${tool 'gradle3.2'}/bin/gradle ${tasks}"
    }
 }
 
-#Invokes the pipeline above
+# Invokes the pipeline above
+
 def myUtils = new org.demo.buildUtils()
 git "<gradle project to clone>"
 myUtils.timedGradleBuild("clean build")
+```
 
+## SCRIPTED LANGUAGE SYNTAX ### ****************************************************
 
-### SCRIPTED LANGUAGE SYNTAX ### ****************************************************
+# Identifiers
 
-#Identifiers
 //
 def employeename
 
-#Builtin data types (Groovy) of interest
-  - byte
-  - short (Short number)
-  - int (Whole numbrers)
-  - long (Long numbers)
-  - float (number with decimal points)
-  - char (Single character)
-  - Boolean (True/false)
-  - String 
+# Builtin data types (Groovy) of interest
 
-#Sample library routine
+- byte
+- short (Short number)
+- int (Whole numbrers)
+- long (Long numbers)
+- float (number with decimal points)
+- char (Single character)
+- Boolean (True/false)
+- String
+
+# Sample library routine
+
 //Declares commandOutput variable
 def commandOutput
 timestamps {
   //Sets commandOutput variable
-   commandOutput = sh(script: "${<command-to-run>}", 
+   commandOutput = sh(script: "${`<command-to-run>`}",
    returnStdout: true).trim()
 }
 //Displays commandOutput variable
 echo commandOutput
 
-#Creating a method
-#Stored in src/
+## Creating a method — shared library variant
+
+# Stored in src/
+
 // org.demo.buildUtils
 
 package org.demo
@@ -337,16 +387,20 @@ def timedGradleBuild(tasks) {
    }
 }
 
-#Invoking org.demo.buildUtils
+```groovy
+# Invoking org.demo.buildUtils
+
 //Creates an instantiation of the method
 def myUtils = new org.demo.buildUtils()
 git "<gradle project to clone>"
 //Passes criteria into method
 myUtils.timedGradleBuild("clean build")
+```
 
-### DECLARATIVE SYNTAX LANGUAGE ### ****************************************************
+## DECLARATIVE SYNTAX LANGUAGE ### ****************************************************
 
-#Tools
+# Tools
+
 - ant
 - git
 - gradle
@@ -356,15 +410,17 @@ myUtils.timedGradleBuild("clean build")
 - maven
 
 tools {
-  <tool> <tool_version>
+  `<tool>` `<tool_version>`
 }
 
-#Example
+# Example
+
 tools{
   gradle "gradle3.2"
 }
 
-#Options
+# Options
+
 - buildDiscarder (Only keeps so many builds)
    options { buildDiscarder(logRotator(numToKeepStr: '10')) }
 - disableConcurrentBuilds (Prevents concurrent builds of the same pipeline)
@@ -375,62 +431,63 @@ remaining stages)
   options { skipStagesAfterUnstable()}
 - timeout
   options { timeout(time: 15, unit: 'MINUTES') }
-- timestamps 
+- timestamps
   options { timestamps() }
 
-#Triggers
+# Triggers
+
 - cron (Pursues at interval) and pollSCM checks for updates
-  // Start a pipeline execution at 10 minutes past the hour 
-  triggers { cron(10 * * * *) }
+  // Start a pipeline execution at 10 minutes past the hour
+  triggers { cron(10 ****) }
 
   // Scan for SCM changes at 10-minute intervals
-  triggers { pollSCM(*/10 * * * *) }
-
+  triggers { pollSCM(*/10* ** *) }
 
 - upstream (Takes comma-separated string) of Jenkins job and condition to check)
-  triggers { 
+  triggers {
       upstream(upstreamProjects: 'jobA,jobB', threshold:
-          hudson.model.Result.SUCCESS) 
+          hudson.model.Result.SUCCESS)
   }
-
 
 - githubPush (Uses webhook on Github side to detect when push occurs)
   triggers { githubPush() }
 
-#parameters
+# parameters
+
 - booleanParam
-  parameters { booleanParam(defaultValue: false, 
+  parameters { booleanParam(defaultValue: false,
     description: 'test run?', name: 'testRun')}
 - choice (Select from a list of choices)
-  parameters{ choice(choices: 'Windows-1\nLinux-2', description: 
+  parameters{ choice(choices: 'Windows-1\nLinux-2', description:
     'Which platform?', name: 'platform')}
 - file (Add a file)
   parameters{ file(fileLocation: '', description: 'Select the file to
     upload')}
 - text (Enter some text)
-  parameters{ text(defaultValue: 'No message', description: 
+  parameters{ text(defaultValue: 'No message', description:
  'Enter your message', name: 'userMsg')
 - password (Allows to enter hidden password)
-  parameters{ password(defaultValue: "userpass1", description: 
+  parameters{ password(defaultValue: "userpass1", description:
   'User password?', name: 'userPW')}
 - run (Allows used to select particular run from job)
-  * Filter options:
-      + All Builds
-      + Completed Builds
-      + Successful Builds
-      + Stable Builds Only
-  parameters{ run(name: "Last success", description: 
-    'Last successful project', project: 'project1', 
+  - Filter options:
+    - All Builds
+    - Completed Builds
+    - Successful Builds
+    - Stable Builds Only
+  parameters{ run(name: "Last success", description:
+    'Last successful project', project: 'project1',
     filter: 'Successful Builds')}
 - string (Parameter for entering string)
-  parameters{ string(defaultValue: "Linux", 
+  parameters{ string(defaultValue: "Linux",
     description: 'What platform?', name: 'platform')}
 
-#Passing parameters into a pipeline
+# Passing parameters into a pipeline
+
 pipeline {
    agent any
-   parameters{ 
-      string(defaultValue: "maintainer", 
+   parameters{
+      string(defaultValue: "maintainer",
              description: 'Enter user role:', name: 'userRole')
    }
    stages {
@@ -439,17 +496,19 @@ pipeline {
             //Passes parameters in
             echo "User's role = ${params.userRole}"
           }
-      } 
+      }
    }
  }
 
  #Condition execution options
- - allOf (All statements must match)
- - anyOf (Any one statement may match)
- - not (Not the statement)
+
+- allOf (All statements must match)
+- anyOf (Any one statement may match)
+- not (Not the statement)
  when {
-   <option> {
-     <criteria 1>
-     <criteria 2>
+   `<option>` {
+     `<criteria 1>`
+     `<criteria 2>`
    }
+
  }

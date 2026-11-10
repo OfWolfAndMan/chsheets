@@ -7,150 +7,173 @@
 ## General Use
 
 ### List all processes
-```Shell
+
+```shell
 ps -aux
 ```
 
 ### Backup things locally
-```Shell
+
+```shell
 rsync {source} {destination}
 ```
 
 ### Create a cronjob
-```Shell
+
+```shell
 crontab -e
 ```
 
 ### Make intermediary directory with multiple
+
 ### subdirectories
-```Shell
+
+```shell
 mkdir -p <TopDir>/{<SubDir1>,<SubDir2>}
 ```
 
 ## ZIP FILES
 
 ### Create tar.gz file
-```Shell
+
+```shell
 tar -czvf {output.tgz} {folder}
 ```
 
 ### Extract tar.gz file
-```Shell
+
+```shell
 tar -xzvf {input.tgz} {path}
 ```
 
 ### Create zip files
-```Shell
+
+```shell
 zip -r {output.zip} {folder}
 ```
 
 ### Extract zip files
-```Shell
+
+```shell
 unzip {input.zip} -d {folder}
 ```
 
 ### Start a service at startup
-```Shell
+
+```shell
 systemctl enable <service>
 ```
 
 ### Show spaces/tabs in a file
-```Shell
+
+```shell
 cat -e -t -v makefile_name
 ```
-
-
 
 ## COMMON FILE LOCATIONS
 
 ### Update hostname
-```Shell
+
+```shell
 /etc/hostname
 ```
 
 ### Update IP configuration
-```Shell
+
+```shell
 /etc/network/interfaces
 ```
 
 ### Modify hosts file
-```Shell
+
+```shell
 /etc/hosts
 ```
 
 ## NETWORK
 
 ### Get IPs and interfaces
-```Shell
+
+```shell
 ifconfig
 ```
 
 ### Restart daemon after changing IP settings
-```Shell
+
+```shell
 /tc/init.d/networking restart
 ```
 
 ### Display all network devices available
-```Shell
+
+```shell
 lspci
 ```
 
 ### Restart Network Interfaces
-- Debian: 
+
+- Debian:
   ip addr flush interface-name
   systemctl restart networking.service
 
 ### Display open ports with programs
-```Shell
+
+```shell
 lsof -i -P
 ```
 
 ### Enable routing
-```Shell
+
+```shell
 sysctl net.ipv4.conf.all.forwarding=1
 sysctl net.ipv6.conf.all.forwarding=1
 ```
 
 ### Flush NAT rules
-```Shell
+
+```shell
 iptables -t nat -F
 ```
 
 ### Configure SNAT (Static IP)
-```Shell
+
+```shell
 iptables -t nat -A POSTROUTING -o <Interface name> -j SNAT --to <Interface IP>
 ```
 
 ### Configure SNAT (Dynamic IP)
-```Shell
+
+```shell
 iptables -t nat -A POSTROUTING -o <Interface name> -j MASQUERADE
 ```
 
 ### Configure DNAT (IP only)
-```Shell
+
+```shell
 iptables -t nat -A PREROUTING -d <Original IP> -j DNAT --to-destination <New IP>
 ```
 
 ### Configure DNAT (IP/port)
-```Shell
+
+```shell
 iptables -t nat -A PREROUTING -p <TCP/UDP> -d <Original IP> --dport <Original Port> -j DNAT \ --to-destination <New IP>:<New port>
 ```
 
 ## USEFUL PROGRAMS
 
 - Firejail: A useful sandboxing application
-  https://github.com/netblue30/firejail
+  <https://github.com/netblue30/firejail>
 
 ### Check some logs
 
-```
+```bash
 sudo tail -f /var/log/apache2/access.log
 sudo less +F  /var/log/apache2/access.log
 ```
 
 ### Checking disk partitions
 
-```Shell
+```text
 $ sudo fdisk -l
 Disk /dev/sda: 500.1 GB, 500107862016 bytes
 255 heads, 63 sectors/track, 60801 cylinders, total 976773168 sectors
@@ -175,7 +198,7 @@ Disk identifier: 0x0001135d
 /dev/sdb1   *        2048     7907327     3952640    b  W95 FAT32
 ```
 
-```Shell
+```shell
 $ df -h
 Filesystem      Size  Used Avail Use% Mounted on
 /dev/sda6        97G   43G   49G  48% /
@@ -189,7 +212,7 @@ none            100M   20K  100M   1% /run/user
 /dev/sda5        98G   37G   62G  38% /media/4668484A68483B47
 ```
 
-```Shell
+```shell
 $ lsblk
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 sda      8:0    0 465.8G  0 disk
@@ -204,7 +227,7 @@ sdb      8:16   1   3.8G  0 disk
 sr0     11:0    1  1024M  0 rom
 ```
 
-```Shell
+```shell
 $ lsblk -o PATH,SIZE,RO,TYPE,MOUNTPOINT,UUID,MODEL
 PATH         SIZE RO TYPE MOUNTPOINT                   UUID                                 MODEL
 /dev/loop0  96.5M  1 loop /snap/core/9436
@@ -226,7 +249,7 @@ PATH         SIZE RO TYPE MOUNTPOINT                   UUID                     
 $
 ```
 
-```Shell
+```shell
 $ sudo blkid
 /dev/sda1: UUID="5E38BE8B38BE6227" TYPE="ntfs"
 /dev/sda5: UUID="4668484A68483B47" TYPE="ntfs"
@@ -238,7 +261,7 @@ $ sudo blkid
 
 ### Ping sweep
 
-```
+```bash
 #!/bin/bash
 
 for ip in $(seq 1 254); do
@@ -248,6 +271,6 @@ done
 
 ### Find all files within a directory recursively with a specific extension
 
-```Shell
+```shell
 find $directory -type f -name "*.in"
 ```

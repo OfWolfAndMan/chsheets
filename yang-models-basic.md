@@ -1,9 +1,7 @@
-=======================================================================================================
-DATA MODEL FOR DEFINING SWITCH HARDWARE
-=======================================================================================================
+## DATA MODEL FOR DEFINING SWITCH HARDWARE
 
 module switches {
-  namespace "http://example.com/switches";
+  namespace "<http://example.com/switches>";
   prefix "switches";
 
   import ietf-inet-type {
@@ -15,7 +13,7 @@ module switches {
   //   type inet:ipv4-address;
   // }
   organization "Cisco Systems";
-  contact "noc@example.com";
+  contact "<noc@example.com>";
   description "Module to Model switches. Lab for Cisco System IT NSO Training.";
   //Defines the revision
   revision 2018-09-19 {
@@ -103,9 +101,7 @@ module switches {
     }
 }
 
-=======================================================================================================
-DATA MODEL FOR CONFIGURING A SWITCHPORT
-=======================================================================================================
+## DATA MODEL FOR CONFIGURING A SWITCHPORT
 
   grouping config-interface-switchport-grouping {
       container access {

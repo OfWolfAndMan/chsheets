@@ -1,5 +1,6 @@
 ### Copy stdout to a file
-```YAML
+
+```yaml
 - tasks:
     - raw: "{{ show arp }}"
       register: show
@@ -10,9 +11,9 @@
       run_once: true #Used to prevent multiple runs if running on localhost but the task falls under multiple host
 ```
 
-
 ### Error handling
-```YAML
+
+```yaml
 - hosts: ios
   tasks:
   - ios_command:
@@ -23,9 +24,9 @@
     when: "not ('Version {{ version }}' in result.stdout[0])"
 ```
 
-
 ### Preventing runs when certain variables are not defined
-```YAML
+
+```yaml
 - name: Generate device configs
   connection: local
   tasks:
@@ -36,9 +37,9 @@
       msg: One of the NMS servers is not defined
 ```
 
-
 ### Rescue block
-```YAML
+
+```yaml
 - hosts: ios
   tasks:
   - block:
@@ -49,9 +50,9 @@
       - actions to execute at the end no matter what.
 ```
 
-
 ### File management (Relevant to ansible host on localhost)
-```YAML
+
+```yaml
 - hosts: localhost
   connection: local
   tasks:
@@ -60,9 +61,9 @@
   #Additional file options - (file, directory, link, hardlink)
 ```
 
-
 ### Adding lines to a text file
-```YAML
+
+```yaml
 - lineinfile:
     dest: version_report.txt
     regexp: "{{ inventory_hostname }}"
@@ -70,9 +71,9 @@
   when: "not ('Version {{ version }}' in result.stdout[0])"
 ```
 
-
 ### Adding blocks to text files
-```YAML
+
+```yaml
 - blockinfile:
     dest: results.txt
     marker: "### { mark } {{ inventory_hostname }}"
@@ -84,9 +85,9 @@
 ### Create - Create a file if it doesn't exist
 ```
 
-
 ### Assembling multiple files into an output file
-```YAML
+
+```yaml
 - assemble:
     src: directory_path
     regex: file_matching_pattern (Optional)
@@ -94,9 +95,9 @@
 ### remote_src: true - Used if source file is on the hose
 ```
 
-
 ### Summary Report: Configuration changes
-```YAML
+
+```yaml
 - name: Document changes
   copy:
     content: |
@@ -111,9 +112,9 @@
   delegate_to: localhost
 ```
 
-
 ### Simple loop for a list
-```YAML
+
+```yaml
 - hosts: ios
   tasks:
   - name: "Ping targets from IOS devices"
@@ -122,9 +123,9 @@
     with_items: "{{ ping_target }}"
 ```
 
-
 ### Simple loop for a dict
-```YAML
+
+```yaml
 - hosts: ios
   tasks:
   - name: "Ping targets from IOS devices"
@@ -133,9 +134,9 @@
     with_dict: "{{ interfaces }}"
 ```
 
-
 ### Loop until a condition is met
-```YAML
+
+```yaml
 - hosts: ios
   tasks:
   - name: "Check interface status"
@@ -146,9 +147,9 @@
     delay: 10
 ```
 
-
 ### Select subset of elements from a list
-```YAML
+
+```yaml
 name: |
   vlans|selectattr('id','equalto',target_vlan)|
   map)attribute='name')|first
@@ -158,9 +159,9 @@ vlans:
   - { id: "101", name: "web", subnet: "192.0.2.0/24"}
 ```
 
-
 ### Extract data from text printout
-```YAML
+
+```yaml
 - ios_command:
     commands: "show ip interface brief | exclude Interface"
   register: printout
@@ -174,9 +175,9 @@ vlans:
 # map is a generator
 ```
 
-
 ### Overwriting the changed flag (In case you don't want) to represent something as "changed" after completion
-```YAML
+
+```yaml
 - hosts: all
   tasks:
   - file: path={{ build_dir }} state=directory
@@ -184,9 +185,9 @@ vlans:
     changed_when: false
 ```
 
-
 ### Check mode for a dry run
-```YAML
+
+```yaml
 - ios_config:
     src: "config file.config"
   register: changes
@@ -202,20 +203,22 @@ vlans:
   check_mode: yes
 ```
 
-
 ### Prepopulate SSH known_hosts file
-https://github.com/ipspace/NetOpsWorkshop/tree/master/tools/ssh-keys
 
+<https://github.com/ipspace/NetOpsWorkshop/tree/master/tools/ssh-keys>
 
 ### Authorize connection (Enable mode)
-```YAML
+
+```yaml
 - tasks:
   - ios_command:
       commands: show arp
       authorize: yes
 ```
+
 ### Build config snippets
-```YAML
+
+```yaml
 - name: BUILD CONFIG SNIPPETS
   template:
     src: "{{ item }}"
@@ -230,7 +233,7 @@ https://github.com/ipspace/NetOpsWorkshop/tree/master/tools/ssh-keys
 
 ### Get Hardware inventory of devices
 
-```YAML
+```yaml
 - name: GET FACTS
     hosts: ROUTER
     gather_facts: false
@@ -261,7 +264,7 @@ https://github.com/ipspace/NetOpsWorkshop/tree/master/tools/ssh-keys
 
 ### Get additional facts from network router
 
-```YAML
+```yaml
 - name: GET FACTS
   hosts: R1
   vars:

@@ -1,20 +1,25 @@
 ## Get public ip address
+
 ### Less Detail
-```Shell
+
+```shell
 curl -4 icanhazip.com
 ```
 
 ### More Detail
-```Shell
+
+```shell
 curl ipinfo.io
 ```
 
 ### Clone a website
-```Shell
+
+```shell
 wget -r -nH $MY_URL
 ```
 
 ### Start Ettercap GUI
-```Shell
+
+```shell
 ettercap -G
 ```
