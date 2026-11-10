@@ -1,0 +1,32 @@
+name: lint
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  checks:
+    name: SHIELD scrub, fenced-block syntax, links, markdown style
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Optional parsers for YAML fences
+        run: pip install --quiet pyyaml
+      - name: SHIELD scrub (credentials, private addressing, personal data)
+        run: python3 scripts/shield_lint.py
+      - name: Fenced-block syntax (bash -n, python compile, YAML parse)
+        run: python3 scripts/fence_lint.py
+      - name: Relative links resolve
+        run: python3 scripts/link_lint.py
+      - name: Front matter present on every sheet
+        run: python3 scripts/frontmatter.py --check
+      - name: Index matches front matter
+        run: python3 scripts/index.py --check
+      - name: Markdown style
+        uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: "**/*.md"

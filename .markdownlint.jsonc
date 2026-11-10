@@ -1,0 +1,25 @@
+{
+  // Long lines are unavoidable in command-first documentation; tables and code
+  // spans make a fixed width actively harmful.
+  "MD013": false,
+  // Repeated heading text is legitimate inside separate sections of a sheet.
+  "MD024": { "siblings_only": true },
+  // Some sheets are fragments that start with a command, not a title.
+  "MD041": false,
+  // Allow the small set of inline HTML elements that render usefully on GitHub.
+  "MD033": { "allowed_elements": ["br", "details", "summary", "kbd", "sup", "sub"] },
+  "MD029": { "style": "ordered" }
+,
+  // Emphasis used as a pseudo-heading: these sheets predate the convention and the
+  // conversion is a content edit scheduled for the rewrite pass, not a formatting fix.
+  "MD036": false,
+  // Purely cosmetic column padding in tables; the renderer does not care.
+  "MD060": false
+,
+  // Mixed fenced/indented blocks remain in the Jenkins sheets; unifying them is a
+  // content reformat (Phase 3), not a lint fix.
+  "MD046": false
+,
+  // The YAML `title:` field is metadata for the index, not a competing H1.
+  "MD025": { "front_matter_title": "" }
+}

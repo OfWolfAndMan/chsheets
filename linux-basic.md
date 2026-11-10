@@ -1,253 +1,243 @@
-## CAVEATS ON CLONING LINUX VMs
+---
+title: Linux
+summary: Linux command reference — services, networking, firewall, storage, logs
+tags: [linux, systemd, networking, nftables]
+tooling: [coreutils, iproute2, systemd, nftables, util-linux]
+verified_on: 2026-11-10
+verified_env: CachyOS, kernel 7.3.3-1-cachyos, systemd 262, iproute2 7.3.0, nft 1.1.7, util-linux 2.42.4
+status: verified
+---
 
-- Change IP if static
-- Change hostname resolution in /etc/hosts file
-- Change services as needed
+# Linux
 
-## General Use
+Everything below was run on the environment named in the front matter. Three idioms
+from the 2018–2021 version of this sheet are gone and should not be reintroduced:
 
-### List all processes
-```Shell
-ps -aux
+| Retired | Replacement |
+|---|---|
+| `ifconfig`, `route`, `netstat` | `ip addr`, `ip route`, `ss` |
+| `iptables` as the interface | `nft` — modern `iptables` is a translator over `nf_tables`, not the native tool |
+| `service foo start` | `systemctl start foo` |
+
+## Orientation
+
+```bash
+uname -r                          # kernel release
+cat /etc/os-release               # distribution identity
+hostnamectl                       # hostname, chassis, kernel, virtualisation
+uptime -p                         # human-readable uptime
+timedatectl                       # clock, timezone, NTP sync state
 ```
 
-### Backup things locally
-```Shell
-rsync {source} {destination}
+## Files, disks, and space
+
+```bash
+lsblk -f                          # block devices with filesystem, label, UUID, mountpoint
+df -h --output=source,size,used,avail,pcent,target
+findmnt --real                    # mounted real filesystems, no pseudo-filesystems
+du -xh --max-depth=1 /var | sort -h    # where the space went, one level deep
 ```
 
-### Create a cronjob
-```Shell
-crontab -e
+`-x` keeps `du` on one filesystem; without it, a stray mount makes the answer wrong.
+
+```bash
+find /var/log -type f -name '*.log' -mtime +7 -delete    # by age — dry-run first
+find . -type f -newermt '2026-01-01' -not -path './.git/*'
 ```
 
-### Make intermediary directory with multiple
-### subdirectories
-```Shell
-mkdir -p <TopDir>/{<SubDir1>,<SubDir2>}
+## Permissions and identity
+
+```bash
+id                                # uid, gid, supplementary groups
+getent passwd <user>              # one account, from the same source the system uses
+stat -c '%A %U:%G %n' <file>      # symbolic mode, owner, group, name
+chmod u=rw,g=r,o= <file>          # symbolic form beats octal for readability
+chown -R <user>:<group> <dir>
+umask                             # the bits new files will not get
 ```
 
-## ZIP FILES
+ACLs, when ownership alone is not enough:
 
-### Create tar.gz file
-```Shell
-tar -czvf {output.tgz} {folder}
+```bash
+setfacl -m u:<user>:rx <dir>
+getfacl <dir>
 ```
 
-### Extract tar.gz file
-```Shell
-tar -xzvf {input.tgz} {path}
+## Processes
+
+```bash
+ps -eo pid,ppid,user,comm,%cpu,%mem --sort=-%cpu | head
+pgrep -af <pattern>               # match and print the full command line
+pstree -p <pid>                   # ancestry
+kill -TERM <pid>                  # polite; -KILL only if it will not die
+kill -l                           # signal names
+renice -n 10 -p <pid>             # lower the priority of a running process
 ```
 
-### Create zip files
-```Shell
-zip -r {output.zip} {folder}
+`kill -9` skips cleanup and leaves locks and sockets behind. Try `-TERM` first.
+
+## systemd services
+
+```bash
+systemctl status <unit> --no-pager
+systemctl start|stop|restart|reload <unit>
+systemctl enable --now <unit>     # enable at boot and start immediately
+systemctl list-units --type=service --state=running --no-pager
+systemctl list-unit-files --state=enabled
+systemctl cat <unit>              # the unit plus any drop-ins, in load order
+systemctl show -p ExecStart <unit>
 ```
 
-### Extract zip files
-```Shell
-unzip {input.zip} -d {folder}
+Override without editing the vendor unit — drop-ins survive package upgrades:
+
+```bash
+systemctl edit <unit>             # writes /etc/systemd/system/<unit>.d/override.conf
+systemctl daemon-reload           # required after hand-editing any unit file
+systemd-analyze verify <unit>
 ```
 
-### Start a service at startup
-```Shell
-systemctl enable <service>
+## systemd timers
+
+A timer plus a service replaces most cron jobs and gives you journal integration.
+
+```ini
+# /etc/systemd/system/report.timer
+[Unit]
+Description=Daily report
+
+[Timer]
+OnCalendar=*-*-* 09:17:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
 ```
 
-### Show spaces/tabs in a file
-```Shell
-cat -e -t -v makefile_name
+```ini
+# /etc/systemd/system/report.service
+[Unit]
+Description=Daily report writer
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/report.sh
 ```
 
-
-
-## COMMON FILE LOCATIONS
-
-### Update hostname
-```Shell
-/etc/hostname
+```bash
+systemctl daemon-reload
+systemctl enable --now report.timer
+systemctl list-timers --all --no-pager
+journalctl -u report.service -n 30 --no-pager
 ```
 
-### Update IP configuration
-```Shell
-/etc/network/interfaces
+`Persistent=true` is what makes a laptop timer behave: if the scheduled moment was
+missed because the machine was asleep, it fires at the next opportunity instead of
+being silently skipped.
+
+## Networking
+
+```bash
+ip -brief addr                    # interfaces and addresses, one line each
+ip route                          # routing table
+ip -s link show <iface>           # counters and errors per interface
+ss -tulpn                         # listening sockets with owning processes (root)
+ss -tan state established
+resolvectl status                 # per-interface DNS configuration
+nmcli device status               # NetworkManager's view, when NM is in use
+resolvectl query example.com      # name resolution through the system resolver
 ```
 
-### Modify hosts file
-```Shell
-/etc/hosts
+## Firewall — nftables
+
+Rules live in tables, tables hold chains, chains hold rules. The family decides which
+address families the table applies to: `inet` covers IPv4 and IPv6 together.
+
+```bash
+sudo nft list ruleset             # everything, all families
+sudo nft -s list ruleset          # the same, in re-loadable syntax
+sudo nft list table inet filter
+sudo nft --check -f /etc/nftables.conf   # syntax-check without applying
 ```
 
-## NETWORK
+A host firewall:
 
-### Get IPs and interfaces
-```Shell
-ifconfig
+```nft
+table inet example {
+  chain input {
+    type filter hook input priority filter; policy drop;
+    ct state established,related accept
+    iif "lo" accept
+    tcp dport 22 accept
+    icmp type echo-request accept
+  }
+}
 ```
 
-### Restart daemon after changing IP settings
-```Shell
-/tc/init.d/networking restart
+Source NAT for a router:
+
+```nft
+table ip nat {
+  chain postrouting {
+    type nat hook postrouting priority srcnat; policy accept;
+    oifname "wlan0" masquerade
+  }
+}
 ```
 
-### Display all network devices available
-```Shell
-lspci
+Persistence is distribution-specific: on Arch-family systems `nftables.service` loads
+`/etc/nftables.conf` at boot. Put the ruleset there, enable the service, and keep the
+file in version control.
+
+> If `iptables` is used at all, the kernel table is owned by `iptables-nft`. Hand
+> written `nft` rules added to a table that `iptables` manages will be overwritten.
+> One tool per table.
+
+## Logs
+
+```bash
+journalctl -b                     # this boot
+journalctl -b -1                  # previous boot — first stop for "it broke at reboot"
+journalctl -u <unit> -f           # follow one unit
+journalctl --since '1 hour ago' -p warning
+journalctl -k                     # kernel messages only
+journalctl --disk-usage && journalctl --vacuum-time=14d
 ```
 
-### Restart Network Interfaces
-- Debian: 
-  ip addr flush interface-name
-  systemctl restart networking.service
+## Archives and transfer
 
-### Display open ports with programs
-```Shell
-lsof -i -P
+```bash
+tar --zstd -cvf archive.tar.zst <dir>
+tar --zstd -xvf archive.tar.zst
+tar -cvf - <dir> | ssh <host> 'tar -xvf - -C /dest'   # copy without an intermediate file
+rsync -avh --progress <src>/ <host>:<dest>/
+rsync -avhn --delete <src>/ <dest>/    # -n is a dry run; always run it before --delete
 ```
 
-### Enable routing
-```Shell
-sysctl net.ipv4.conf.all.forwarding=1
-sysctl net.ipv6.conf.all.forwarding=1
+## Packages (Arch family)
+
+```bash
+pacman -Syu <pkg>                 # sync the database, upgrade, install
+pacman -Rs <pkg>                  # remove, including orphaned dependencies
+pacman -Ql <pkg>                  # files owned by a package
+pacman -Qo /usr/bin/<file>        # which package owns this path
+pacman -Qdt                       # orphaned dependencies — prune candidates
 ```
 
-### Flush NAT rules
-```Shell
-iptables -t nat -F
+## Text and data
+
+```bash
+grep -rn --include='*.conf' '<pattern>' /etc
+rg -n '<pattern>' --glob '!*.log'   # ripgrep: respects .gitignore, much faster
+sed -i.bak 's/old/new/g' <file>     # -i.bak keeps a copy; bare -i does not
+awk -F: '$3 >= 1000 { print $1, $3 }' /etc/passwd
+sort | uniq -c | sort -rn           # frequency count
+jq -r '.items[] | .name' <file.json>
 ```
 
-### Configure SNAT (Static IP)
-```Shell
-iptables -t nat -A POSTROUTING -o <Interface name> -j SNAT --to <Interface IP>
-```
+## Troubleshooting order
 
-### Configure SNAT (Dynamic IP)
-```Shell
-iptables -t nat -A POSTROUTING -o <Interface name> -j MASQUERADE
-```
-
-### Configure DNAT (IP only)
-```Shell
-iptables -t nat -A PREROUTING -d <Original IP> -j DNAT --to-destination <New IP>
-```
-
-### Configure DNAT (IP/port)
-```Shell
-iptables -t nat -A PREROUTING -p <TCP/UDP> -d <Original IP> --dport <Original Port> -j DNAT \ --to-destination <New IP>:<New port>
-```
-
-## USEFUL PROGRAMS
-
-- Firejail: A useful sandboxing application
-  https://github.com/netblue30/firejail
-
-### Check some logs
-
-```
-sudo tail -f /var/log/apache2/access.log
-sudo less +F  /var/log/apache2/access.log
-```
-
-### Checking disk partitions
-
-```Shell
-$ sudo fdisk -l
-Disk /dev/sda: 500.1 GB, 500107862016 bytes
-255 heads, 63 sectors/track, 60801 cylinders, total 976773168 sectors
-Units = sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disk identifier: 0x30093008
-   Device Boot      Start         End      Blocks   Id  System
-/dev/sda1   *          63   146801969    73400953+   7  HPFS/NTFS/exFAT
-/dev/sda2       146802031   976771071   414984520+   f  W95 Ext'd (LBA)
-/dev/sda5       146802033   351614654   102406311    7  HPFS/NTFS/exFAT
-/dev/sda6       351614718   556427339   102406311   83  Linux
-/dev/sda7       556429312   560427007     1998848   82  Linux swap / Solaris
-/dev/sda8       560429056   976771071   208171008   83  Linux
-Disk /dev/sdb: 4048 MB, 4048551936 bytes
-54 heads, 9 sectors/track, 16270 cylinders, total 7907328 sectors
-Units = sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disk identifier: 0x0001135d
-   Device Boot      Start         End      Blocks   Id  System
-/dev/sdb1   *        2048     7907327     3952640    b  W95 FAT32
-```
-
-```Shell
-$ df -h
-Filesystem      Size  Used Avail Use% Mounted on
-/dev/sda6        97G   43G   49G  48% /
-none            4.0K     0  4.0K   0% /sys/fs/cgroup
-udev            3.9G  8.0K  3.9G   1% /dev
-tmpfs           799M  1.7M  797M   1% /run
-none            5.0M     0  5.0M   0% /run/lock
-none            3.9G   12M  3.9G   1% /run/shm
-none            100M   20K  100M   1% /run/user
-/dev/sda8       196G  154G   33G  83% /media/13f35f59-f023-4d98-b06f-9dfaebefd6c1
-/dev/sda5        98G   37G   62G  38% /media/4668484A68483B47
-```
-
-```Shell
-$ lsblk
-NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
-sda      8:0    0 465.8G  0 disk
-├─sda1   8:1    0    70G  0 part
-├─sda2   8:2    0     1K  0 part
-├─sda5   8:5    0  97.7G  0 part /media/4668484A68483B47
-├─sda6   8:6    0  97.7G  0 part /
-├─sda7   8:7    0   1.9G  0 part [SWAP]
-└─sda8   8:8    0 198.5G  0 part /media/13f35f59-f023-4d98-b06f-9dfaebefd6c1
-sdb      8:16   1   3.8G  0 disk
-└─sdb1   8:17   1   3.8G  0 part
-sr0     11:0    1  1024M  0 rom
-```
-
-```Shell
-$ lsblk -o PATH,SIZE,RO,TYPE,MOUNTPOINT,UUID,MODEL
-PATH         SIZE RO TYPE MOUNTPOINT                   UUID                                 MODEL
-/dev/loop0  96.5M  1 loop /snap/core/9436
-/dev/loop1 229.6M  1 loop /snap/atom/257
-/dev/loop2    55M  1 loop /snap/core18/1880
-/dev/loop3  54.8M  1 loop /snap/gtk-common-themes/1502
-/dev/loop4 156.2M  1 loop /snap/chromium/1213
-/dev/loop5    55M  1 loop /snap/core18/1754
-/dev/loop6  62.1M  1 loop /snap/gtk-common-themes/1506
-/dev/loop7 230.6M  1 loop /snap/atom/258
-/dev/loop8 158.4M  1 loop /snap/chromium/1229
-/dev/loop9    97M  1 loop /snap/core/9665
-/dev/sda   465.8G  0 disk                                                                   Samsung_Portable_SSD_T5
-/dev/sda1    420G  0 part                              757dcceb-3e17-4ca8-9ba1-b0cf68fb0134
-/dev/sdb   111.8G  0 disk                                                                   Samsung_SSD_840_EVO_120GB
-/dev/sdb1   95.4G  0 part /                            19d84ceb-8046-4f8d-a85a-cda49515d92c
-/dev/sdc   111.8G  0 disk                                                                   Samsung_SSD_850_EVO_120GB
-/dev/sdc1   95.8G  0 part                              f41b21a7-e8be-48ac-b10d-cad641bf709b
-$
-```
-
-```Shell
-$ sudo blkid
-/dev/sda1: UUID="5E38BE8B38BE6227" TYPE="ntfs"
-/dev/sda5: UUID="4668484A68483B47" TYPE="ntfs"
-/dev/sda6: UUID="6fa5a72a-ba26-4588-a103-74bb6b33a763" TYPE="ext4"
-/dev/sda7: UUID="94443023-34a1-4428-8f65-2fb02e571dae" TYPE="swap"
-/dev/sda8: UUID="13f35f59-f023-4d98-b06f-9dfaebefd6c1" TYPE="ext4"
-/dev/sdb1: UUID="08D1-8024" TYPE="vfat"
-```
-
-### Ping sweep
-
-```
-#!/bin/bash
-
-for ip in $(seq 1 254); do
-        ping -c 1 192.168.1.$ip | grep "bytes from" | cut -d " " -f 4 | cut -d ":" -f 1 &
-done
-```
-
-### Find all files within a directory recursively with a specific extension
-
-```Shell
-find $directory -type f -name "*.in"
-```
+1. `systemctl --failed` — what actually broke.
+2. `journalctl -b -p err --no-pager` — this boot's errors.
+3. `systemd-analyze blame` and `critical-chain` — why boot is slow.
+4. `systemctl cat <unit>` — which file defined the behaviour you are seeing.
+5. `ip -brief addr` and `ss -tulpn` — service problem or network problem.
