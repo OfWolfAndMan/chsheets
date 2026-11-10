@@ -15,10 +15,10 @@ they use.
 
 ## Status
 
-Unverified. None of these has been executed since 2021, outputs are still baked into
-the `.ipynb` files, and no environment is pinned. Notebook output is a claim about a
-run that nobody can now reproduce or contradict — the same defect the rest of this
-repository had before the front-matter pass.
+Unverified. None of these has been executed since 2021, and no environment is pinned.
+All stored outputs and execution counts were stripped on 2026-11-10: committed output
+is a claim about a run that nobody can now reproduce or contradict, and it carried
+local paths, tracebacks and private addresses into the public tree.
 
 If you want to use them:
 
