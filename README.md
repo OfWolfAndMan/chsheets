@@ -21,30 +21,35 @@ version on a stated date.
 
 ## Sheets
 
-| Sheet | Covers |
-| --- | --- |
-| [ansible-network.md](ansible-network.md) | Ansible for network devices: show commands, config push, output capture |
-| [cumulus-vx.md](cumulus-vx.md) | Cumulus VX / NVIDIA Cumulus Linux lab commands |
-| [docker-basic.md](docker-basic.md) | Docker and Compose basics |
-| [elk-stack.md](elk-stack.md) | Elasticsearch, Logstash, Kibana install and node configuration |
-| [f5-bigip-ltm.md](f5-bigip-ltm.md) | F5 BIG-IP LTM — `tmsh` essentials |
-| [git-basic.md](git-basic.md) | git command reference |
-| [java-basic.md](java-basic.md) | Java language basics |
-| [jenkins-basic.md](jenkins-basic.md) | Jenkins install and administration |
-| [jenkins-pipeline-execution.md](jenkins-pipeline-execution.md) | Pipeline execution notes — triggers, stages, post blocks |
-| [jenkinsfile-example.md](jenkinsfile-example.md) | A worked Jenkinsfile |
-| [linux-basic.md](linux-basic.md) | Linux command reference |
-| [pandas-examples.md](pandas-examples.md) | pandas recipes |
-| [postgresql.md](postgresql.md) | PostgreSQL administration and `psql` |
-| [python-basic.md](python-basic.md) | Python basics, tox, pytest |
-| [python-regex.md](python-regex.md) | Regex in Python, including network-output parsing |
-| [rabbitmq.md](rabbitmq.md) | RabbitMQ administration |
-| [redteam-shell.md](redteam-shell.md) | Offensive shell one-liners |
-| [sql-basic.md](sql-basic.md) | SQL refresher |
-| [windows-advanced.md](windows-advanced.md) | Windows registry and routing examples |
-| [windows-hardening.md](windows-hardening.md) | Windows client hardening checklist |
-| [yang-models-basic.md](yang-models-basic.md) | YANG data models — Cisco NSO lab |
-| [jupyter_notebooks/](jupyter_notebooks/) | Seven notebooks: pandas, regex, lists, dicts, optimisations |
+The index below is generated from each sheet's front matter by `scripts/index.py`.
+Status is `unverified` until someone runs the commands against a stated version.
+
+<!-- BEGIN INDEX -->
+| Sheet | Covers | Status |
+|---|---|---|
+| [ansible-network.md](ansible-network.md) | Ansible for network devices: show commands, config push, output capture | unverified |
+| [cumulus-vx.md](cumulus-vx.md) | Cumulus VX / NVIDIA Cumulus Linux lab commands | unverified |
+| [docker-basic.md](docker-basic.md) | Docker and Compose basics | unverified |
+| [elk-stack.md](elk-stack.md) | OpenSearch install, node configuration, and the Elastic deltas | unverified |
+| [f5-bigip-ltm.md](f5-bigip-ltm.md) | F5 BIG-IP LTM — `tmsh` essentials | unverified |
+| [git-basic.md](git-basic.md) | git command reference | unverified |
+| [java-basic.md](java-basic.md) | Java language basics | unverified |
+| [jenkins-basic.md](jenkins-basic.md) | Jenkins install and administration | unverified |
+| [jenkins-pipeline-execution.md](jenkins-pipeline-execution.md) | Pipeline execution notes — triggers, stages, post blocks | unverified |
+| [jenkinsfile-example.md](jenkinsfile-example.md) | A worked Jenkinsfile | unverified |
+| [linux-basic.md](linux-basic.md) | Linux command reference | unverified |
+| [pandas-examples.md](pandas-examples.md) | pandas recipes | unverified |
+| [postgresql.md](postgresql.md) | PostgreSQL administration and `psql` | unverified |
+| [python-basic.md](python-basic.md) | Python basics, environments, tests | unverified |
+| [python-regex.md](python-regex.md) | Regex in Python, including network-output parsing | unverified |
+| [rabbitmq.md](rabbitmq.md) | RabbitMQ administration | unverified |
+| [redteam-shell.md](redteam-shell.md) | Offensive shell one-liners | unverified |
+| [sql-basic.md](sql-basic.md) | SQL refresher | unverified |
+| [windows-advanced.md](windows-advanced.md) | Windows registry and routing examples | unverified |
+| [windows-hardening.md](windows-hardening.md) | Windows client hardening checklist | unverified |
+| [yang-models-basic.md](yang-models-basic.md) | YANG data models — Cisco NSO lab | unverified |
+| [jupyter_notebooks/](jupyter_notebooks/) | Seven notebooks: pandas, regex, lists, dicts, optimisations | unverified |
+<!-- END INDEX -->
 
 ## Removed
 

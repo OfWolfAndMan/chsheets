@@ -1,4 +1,16 @@
-### Copy stdout to a file
+---
+title: Ansible — network devices
+summary: Ansible for network devices: show commands, config push, output capture
+tags: [ansible, network, automation]
+tooling: [ansible-core, ansible.netcommon, ansible collections]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# Ansible — network devices
+
+## Copy stdout to a file
 
 ```yaml
 - tasks:

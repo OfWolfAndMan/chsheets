@@ -19,4 +19,7 @@
   // Mixed fenced/indented blocks remain in the Jenkins sheets; unifying them is a
   // content reformat (Phase 3), not a lint fix.
   "MD046": false
+,
+  // The YAML `title:` field is metadata for the index, not a competing H1.
+  "MD025": { "front_matter_title": "" }
 }

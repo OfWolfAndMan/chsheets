@@ -1,3 +1,15 @@
+---
+title: SQL
+summary: SQL refresher
+tags: [database, sql]
+tooling: [sql]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# SQL
+
 ```sql
 create table devices (
     hostname VARCHAR(30) NOT NULL PRIMARY KEY,

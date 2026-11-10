@@ -1,3 +1,15 @@
+---
+title: YANG data models
+summary: YANG data models — Cisco NSO lab
+tags: [network, yang, nso]
+tooling: [yang, pyang, cisco nso]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# YANG data models
+
 ## DATA MODEL FOR DEFINING SWITCH HARDWARE
 
 module switches {

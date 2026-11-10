@@ -1,4 +1,16 @@
-### Separate a line in an ARP table based on regex
+---
+title: Python — regular expressions
+summary: Regex in Python, including network-output parsing
+tags: [python, regex]
+tooling: [python, re]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# Python — regular expressions
+
+## Separate a line in an ARP table based on regex
 
 ```python
 import re

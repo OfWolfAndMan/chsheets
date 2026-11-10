@@ -1,3 +1,15 @@
+---
+title: RabbitMQ
+summary: RabbitMQ administration
+tags: [messaging, rabbitmq]
+tooling: [rabbitmq, rabbitmqctl]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# RabbitMQ
+
 ## Overview
 
 RabbitMQ is an open source message

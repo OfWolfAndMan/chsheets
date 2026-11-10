@@ -1,3 +1,13 @@
+---
+title: Python
+summary: Python basics, environments, tests
+tags: [language, python]
+tooling: [python, uv, pytest]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
 # Overview
 
 - Purpose of a programming language

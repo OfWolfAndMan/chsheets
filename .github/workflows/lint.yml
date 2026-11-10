@@ -22,6 +22,10 @@ jobs:
         run: python3 scripts/fence_lint.py
       - name: Relative links resolve
         run: python3 scripts/link_lint.py
+      - name: Front matter present on every sheet
+        run: python3 scripts/frontmatter.py --check
+      - name: Index matches front matter
+        run: python3 scripts/index.py --check
       - name: Markdown style
         uses: DavidAnson/markdownlint-cli2-action@v19
         with:

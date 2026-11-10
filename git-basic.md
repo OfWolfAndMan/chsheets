@@ -1,3 +1,15 @@
+---
+title: git
+summary: git command reference
+tags: [vcs, git]
+tooling: [git]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# git
+
 ## Trust SSH key from Github
 
 ```bash

@@ -1,3 +1,13 @@
+---
+title: OpenSearch stack
+summary: OpenSearch install, node configuration, and the Elastic deltas
+tags: [search, logs, observability]
+tooling: [opensearch, opensearch-dashboards, logstash]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
 # Elasticsearch
 
 ## Getting Started

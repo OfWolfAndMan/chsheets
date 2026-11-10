@@ -1,24 +1,36 @@
-### PIPELINE KEYPOINTS ### ****************************************************
+---
+title: Jenkins pipelines
+summary: Pipeline execution notes — triggers, stages, post blocks
+tags: [ci, jenkins, groovy]
+tooling: [jenkins, groovy]
+verified_on: null
+verified_env: null
+status: unverified
+---
 
-# A user may choose to write a pipeline script locally
+# Jenkins pipelines
 
-# or pull from an SCM source
+## PIPELINE KEYPOINTS ### ****************************************************
 
-## TRIGGERS ### ****************************************************
+## A user may choose to write a pipeline script locally
 
-# Pull strategy
+## or pull from an SCM source
+
+### TRIGGERS ### ****************************************************
+
+## Pull strategy
 
     * Reaches out to see if changes in the code
 
-# Push strategy
+## Push strategy
 
     * Something else notifies Jenkins the code changed 
 
-# Triggers can be implemented in three ways
+## Triggers can be implemented in three ways
 
-# General Configuration of the Project
+## General Configuration of the Project
 
-# Scripted Pipeline
+## Scripted Pipeline
 
     # Example: Building a Project
     # after other projects are built
@@ -41,7 +53,7 @@
     # Example: Poll SCM periodically
     properties([pipelineTriggers([pollSCM('*/30 * * * *')])])
 
-# Declarative Pipeline
+## Declarative Pipeline
 
     # Example: Build periodically
     triggers { cron(0 9 * * 1-5) 
@@ -53,46 +65,46 @@
     # accessing a specific URL for the given
     # job on the Jenkins system
 
-# Freestyle project
+## Freestyle project
 
     # Check "Github hook trigger for GITScm polling"
     # Global config should have auth configured
     # Under the settings of the repo, the webhook
     # will show up once the project is created
 
-## USER INPUT ### ****************************************************
+### USER INPUT ### ****************************************************
 
-# Prompt user with message
+## Prompt user with message
 
 input 'Continue with the final stage?'
 
-# Give the user a variety of choices
+## Give the user a variety of choices
 
 def choice = input message: '`<message>`',
  parameters: [choice(choices: "choice1\nchoice2\nchoice3\nchoice4\n",
  description: 'Choose one of the following options', name: 'Options')]
 
-# Boolean
+## Boolean
 
 def answer = input message: '`<message>`',
  parameters: [booleanParam(defaultValue: true,
  description: 'Prerelease setting', name: 'prerelease')]
 
-# Choosing a file to use with the pipeline
+## Choosing a file to use with the pipeline
 
 def selectedFile = input message: '`<message>`',
  parameters: [file(description: 'Choose file to upload', name: 'local')]
 
-# Multiline string
+## Multiline string
 
 def lines = input message: '`<message>`',
  parameters: [text(defaultValue: '''line 1
  line 2
  line 3''', description: '', name: 'Input Lines')]
 
-# Script block (Used for allowing scripted pipeline syntax
+## Script block (Used for allowing scripted pipeline syntax
 
-# in declarative syntax language)
+## in declarative syntax language)
 
   stage ('Input') {
            steps {  
@@ -108,11 +120,11 @@ def lines = input message: '`<message>`',
            }
 }
 
-## Flow control options
+### Flow control options
 
-# Use timeout (Limits amount of time your script spends waiting
+## Use timeout (Limits amount of time your script spends waiting
 
-# for an action to happen)
+## for an action to happen)
 
 node {
     def response
@@ -126,7 +138,7 @@ node {
     }
 }
 
-# Exception handling with timeout
+## Exception handling with timeout
 
 node {
     def response
@@ -146,15 +158,15 @@ node {
     }
 }
 
-# Retrying the process
+## Retrying the process
 
 retry(`<n>`) { // processing }
 
-# Sleeping (Delay step)
+## Sleeping (Delay step)
 
 sleep time: 5, unit: 'MINUTES'
 
-# Wait until something happens
+## Wait until something happens
 
 timeout(time:15, unit:'SECONDS') {
     waitUntil {
@@ -165,11 +177,11 @@ timeout(time:15, unit:'SECONDS') {
 
  }
 
-# Stash and unstash
+## Stash and unstash
 
-# Allows for saving and retreving files between
+## Allows for saving and retreving files between
 
-# nodes and/or stages in a pipeline
+## nodes and/or stages in a pipeline
 
 stages {
 
@@ -194,7 +206,7 @@ stages {
    }
 }
 
-# Advanced error handling
+## Advanced error handling
 
 def err = null
 try {
@@ -215,9 +227,9 @@ finally {
    }
 }
 
-# Post-processing
+## Post-processing
 
-# Conditions
+## Conditions
 
     # always: Always executes the steps in the block
     # changed: Executed if current build different from previous build
@@ -244,7 +256,7 @@ finally {
     }
 } // end pipeline
 
-# Sending an email
+## Sending an email
 
 pipeline {
   agent any
@@ -260,11 +272,11 @@ pipeline {
   }
 }
 
-# SMTP server, default user email suffix, SMTP
+## SMTP server, default user email suffix, SMTP
 
-# authentication defined in global settings
+## authentication defined in global settings
 
-# Send email with attached logs
+## Send email with attached logs
 
 ```groovy
   emailext attachLog: true, body:
@@ -281,39 +293,39 @@ pipeline {
     to: '<devops@example.com>'
 ```
 
-## LIBRARIES ### ****************************************************
+### LIBRARIES ### ****************************************************
 
-# Import a library
+## Import a library
 
 import static `<Library>`
 
 @Library('`<libname>`[@version]')_ [`<import statement>`]
 
-# Version may be tag, branch name, etc
+## Version may be tag, branch name, etc
 
-# Import statement for subsets
+## Import statement for subsets
 
-# Import statement not required
+## Import statement not required
 
-# Underscore only required if no import statement used
+## Underscore only required if no import statement used
 
-# Load default version of a library
+## Load default version of a library
 
 @Library('myLib')
 
-# Load specific version of library
+## Load specific version of library
 
 @Library('yourLib@2.0')
 
-# Access multiple libraries
+## Access multiple libraries
 
 @Library(['myLib', 'yourLib@master'])
 
-# With import statement
+## With import statement
 
 @Library('myLib@1.0') import static org.demo.Utilities.*
 
-# Add some timestamps
+## Add some timestamps
 
 def commandOutput
 timestamps {
@@ -322,12 +334,12 @@ timestamps {
 }
 echo commandOutput
 
-# Creating a method
+## Creating a method
 
 // org.demo.buildUtils
 package org.demo
 
-# Defines the method
+## Defines the method
 
 ```groovy
 def timedGradleBuild(tasks) {
@@ -343,14 +355,14 @@ git "<gradle project to clone>"
 myUtils.timedGradleBuild("clean build")
 ```
 
-## SCRIPTED LANGUAGE SYNTAX ### ****************************************************
+### SCRIPTED LANGUAGE SYNTAX ### ****************************************************
 
-# Identifiers
+## Identifiers
 
 //
 def employeename
 
-# Builtin data types (Groovy) of interest
+## Builtin data types (Groovy) of interest
 
 - byte
 - short (Short number)
@@ -361,7 +373,7 @@ def employeename
 - Boolean (True/false)
 - String
 
-# Sample library routine
+## Sample library routine
 
 //Declares commandOutput variable
 def commandOutput
@@ -373,9 +385,9 @@ timestamps {
 //Displays commandOutput variable
 echo commandOutput
 
-## Creating a method — shared library variant
+### Creating a method — shared library variant
 
-# Stored in src/
+## Stored in src/
 
 // org.demo.buildUtils
 
@@ -397,9 +409,9 @@ git "<gradle project to clone>"
 myUtils.timedGradleBuild("clean build")
 ```
 
-## DECLARATIVE SYNTAX LANGUAGE ### ****************************************************
+### DECLARATIVE SYNTAX LANGUAGE ### ****************************************************
 
-# Tools
+## Tools
 
 - ant
 - git
@@ -413,13 +425,13 @@ tools {
   `<tool>` `<tool_version>`
 }
 
-# Example
+## Example
 
 tools{
   gradle "gradle3.2"
 }
 
-# Options
+## Options
 
 - buildDiscarder (Only keeps so many builds)
    options { buildDiscarder(logRotator(numToKeepStr: '10')) }
@@ -434,7 +446,7 @@ remaining stages)
 - timestamps
   options { timestamps() }
 
-# Triggers
+## Triggers
 
 - cron (Pursues at interval) and pollSCM checks for updates
   // Start a pipeline execution at 10 minutes past the hour
@@ -452,7 +464,7 @@ remaining stages)
 - githubPush (Uses webhook on Github side to detect when push occurs)
   triggers { githubPush() }
 
-# parameters
+## parameters
 
 - booleanParam
   parameters { booleanParam(defaultValue: false,
@@ -482,7 +494,7 @@ remaining stages)
   parameters{ string(defaultValue: "Linux",
     description: 'What platform?', name: 'platform')}
 
-# Passing parameters into a pipeline
+## Passing parameters into a pipeline
 
 pipeline {
    agent any
