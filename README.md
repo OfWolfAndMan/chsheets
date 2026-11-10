@@ -29,18 +29,18 @@ Status is `unverified` until someone runs the commands against a stated version.
 |---|---|---|
 | [ansible-network.md](ansible-network.md) | Ansible for network devices: show commands, config push, output capture | unverified |
 | [cumulus-vx.md](cumulus-vx.md) | Cumulus VX / NVIDIA Cumulus Linux lab commands | unverified |
-| [docker-basic.md](docker-basic.md) | Docker and Compose basics | unverified |
+| [docker-basic.md](docker-basic.md) | Docker and Compose — images, containers, multi-stage builds, healthchecks | partial |
 | [elk-stack.md](elk-stack.md) | OpenSearch install, node configuration, and the Elastic deltas | unverified |
 | [f5-bigip-ltm.md](f5-bigip-ltm.md) | F5 BIG-IP LTM — `tmsh` essentials | unverified |
-| [git-basic.md](git-basic.md) | git command reference | unverified |
-| [java-basic.md](java-basic.md) | Java language basics | unverified |
+| [git-basic.md](git-basic.md) | git — everyday commands, the undo ladder, rebase, worktrees | verified |
+| [java-basic.md](java-basic.md) | Java — language core, records, streams, modern switch, virtual threads | verified |
 | [jenkins-basic.md](jenkins-basic.md) | Jenkins install and administration | unverified |
 | [jenkins-pipeline-execution.md](jenkins-pipeline-execution.md) | Pipeline execution notes — triggers, stages, post blocks | unverified |
 | [jenkinsfile-example.md](jenkinsfile-example.md) | A worked Jenkinsfile | unverified |
-| [linux-basic.md](linux-basic.md) | Linux command reference | unverified |
+| [linux-basic.md](linux-basic.md) | Linux command reference — services, networking, firewall, storage, logs | verified |
 | [pandas-examples.md](pandas-examples.md) | pandas recipes | unverified |
 | [postgresql.md](postgresql.md) | PostgreSQL administration and `psql` | unverified |
-| [python-basic.md](python-basic.md) | Python basics, environments, tests | unverified |
+| [python-basic.md](python-basic.md) | Python — environments, language core, typing, pathlib, async, testing | verified |
 | [python-regex.md](python-regex.md) | Regex in Python, including network-output parsing | unverified |
 | [rabbitmq.md](rabbitmq.md) | RabbitMQ administration | unverified |
 | [redteam-shell.md](redteam-shell.md) | Offensive shell one-liners | unverified |
