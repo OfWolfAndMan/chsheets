@@ -64,6 +64,8 @@ def classify_ip(text):
             return "INFO", "documentation range (fine)"
     if ip.is_unspecified or str(ip) in ("8.8.8.8", "1.1.1.1", "9.9.9.9"):
         return "INFO", "well-known/any-address (fine in examples)"
+    if ip.is_loopback:                                   # 127.0.0.0/8 is fine in examples
+        return "INFO", "loopback (fine)"
     if ip in ipaddress.ip_network("100.64.0.0/10"):   # noqa: shield  (pattern definition)
         return "HIGH", "CGNAT / tailnet address"
     if ip.is_private:
