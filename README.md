@@ -9,7 +9,7 @@ Short, command-first, and — since 2026 — actually checked.
 | Field | Value |
 | --- | --- |
 | Content last verified | **never** (audit 2026-11-10) |
-| Sheets | 21 markdown, 7 notebooks |
+| Sheets | 16 markdown, 7 notebooks |
 | Dormant | 2021-01-21 → 2026-11-10 |
 | CI | fence + secret lint on push |
 | Licence | MIT (code) / CC BY-SA 4.0 (prose) |
@@ -27,27 +27,23 @@ Status is `unverified` until someone runs the commands against a stated version.
 <!-- BEGIN INDEX -->
 | Sheet | Covers | Status |
 |---|---|---|
-| [ansible-network.md](ansible-network.md) | Ansible for network devices: show commands, config push, output capture | unverified |
+| [ansible-network.md](ansible-network.md) | Ansible for network devices — inventory, FQCN modules, cli_command, config diff | partial |
 | [cumulus-vx.md](cumulus-vx.md) | Cumulus VX / NVIDIA Cumulus Linux lab commands | unverified |
 | [docker-basic.md](docker-basic.md) | Docker and Compose — images, containers, multi-stage builds, healthchecks | partial |
-| [elk-stack.md](elk-stack.md) | OpenSearch install, node configuration, and the Elastic deltas | unverified |
 | [f5-bigip-ltm.md](f5-bigip-ltm.md) | F5 BIG-IP LTM — `tmsh` essentials | unverified |
 | [git-basic.md](git-basic.md) | git — everyday commands, the undo ladder, rebase, worktrees | verified |
 | [java-basic.md](java-basic.md) | Java — language core, records, streams, modern switch, virtual threads | verified |
-| [jenkins-basic.md](jenkins-basic.md) | Jenkins install and administration | unverified |
-| [jenkins-pipeline-execution.md](jenkins-pipeline-execution.md) | Pipeline execution notes — triggers, stages, post blocks | unverified |
-| [jenkinsfile-example.md](jenkinsfile-example.md) | A worked Jenkinsfile | unverified |
+| [jenkins.md](jenkins.md) | Jenkins — install, agents, declarative pipelines, libraries, credentials | unverified |
 | [linux-basic.md](linux-basic.md) | Linux command reference — services, networking, firewall, storage, logs | verified |
+| [opensearch.md](opensearch.md) | OpenSearch — install, cluster health, indices, ingest, security | partial |
 | [pandas-examples.md](pandas-examples.md) | pandas recipes | unverified |
-| [postgresql.md](postgresql.md) | PostgreSQL administration and `psql` | unverified |
+| [postgresql.md](postgresql.md) | PostgreSQL 18 — roles, psql, schema, indexes, backup, plus a SQL refresher | verified |
 | [python-basic.md](python-basic.md) | Python — environments, language core, typing, pathlib, async, testing | verified |
 | [python-regex.md](python-regex.md) | Regex in Python, including network-output parsing | unverified |
-| [rabbitmq.md](rabbitmq.md) | RabbitMQ administration | unverified |
+| [rabbitmq.md](rabbitmq.md) | RabbitMQ — vhosts, users, queues, exchanges, bindings, management API | verified |
 | [redteam-shell.md](redteam-shell.md) | Offensive shell one-liners | unverified |
-| [sql-basic.md](sql-basic.md) | SQL refresher | unverified |
-| [windows-advanced.md](windows-advanced.md) | Windows registry and routing examples | unverified |
-| [windows-hardening.md](windows-hardening.md) | Windows client hardening checklist | unverified |
-| [yang-models-basic.md](yang-models-basic.md) | YANG data models — Cisco NSO lab | unverified |
+| [windows.md](windows.md) | Windows client and server — hardening baseline, registry, networking, updates | unverified |
+| [yang-models-basic.md](yang-models-basic.md) | YANG — module structure, pyang validation, and the two lab modules from the NSO course | verified |
 | [jupyter_notebooks/](jupyter_notebooks/) | Seven notebooks: pandas, regex, lists, dicts, optimisations | unverified |
 <!-- END INDEX -->
 
@@ -56,11 +52,15 @@ Status is `unverified` until someone runs the commands against a stated version.
 Removed in the 2026 modernisation pass, with the reason. Git history keeps them.
 
 | File | Reason |
-| --- | --- |
+|---|---|
 | `artifactory` | Empty since 2021-01-19 — a blank page presented as a sheet |
 | `gradle.md` | Five lines containing a Java "Hello World"; never contained Gradle content |
 | `salt-basic.md` | Salt dropped from the toolkit; Ansible is the automation standard here |
-| `vagrant-basic.md` | HashiCorp is retiring the hosted Vagrant service and box hosting; local VMs are covered by `systemd-nspawn` and `libvirt` |
+| `vagrant-basic.md` | HashiCorp is retiring the hosted Vagrant service; local VMs are covered by `systemd-nspawn` and `libvirt` |
+| `elk-stack.md` | Replaced by `opensearch.md` — it installed Elasticsearch 7.6.0 from 2020 |
+| `sql-basic.md` | Merged into `postgresql.md` as a refresher section; eighteen lines was not a sheet |
+| `windows-advanced.md`, `windows-hardening.md` | Merged into `windows.md` |
+| `jenkins-basic.md`, `jenkins-pipeline-execution.md`, `jenkinsfile-example.md` | Consolidated into `jenkins.md`; 740 lines of overlapping notes with the code unfenced |
 
 ## Roadmap
 

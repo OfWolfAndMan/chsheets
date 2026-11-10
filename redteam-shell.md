@@ -35,3 +35,10 @@ wget -r -nH $MY_URL
 ```shell
 ettercap -G
 ```
+
+## Status
+
+Unverified, and deliberately small. Two of the tools named here (`ettercap`, `wget -r`)
+are for networks you own or have written permission to test. Nothing in this sheet
+belongs on a network you do not control, and an offensive command without a scope
+statement is evidence of nothing except carelessness.

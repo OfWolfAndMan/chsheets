@@ -26,10 +26,6 @@ SHEETS = {
         title="Docker",
         tags=["containers", "docker", "compose"],
         tooling=["docker", "docker compose"]),
-    "elk-stack.md": dict(
-        title="OpenSearch stack",
-        tags=["search", "logs", "observability"],
-        tooling=["opensearch", "opensearch-dashboards", "logstash"]),
     "f5-bigip-ltm.md": dict(
         title="F5 BIG-IP LTM",
         tags=["network", "vendor", "load-balancing"],
@@ -42,22 +38,22 @@ SHEETS = {
         title="Java",
         tags=["language", "java"],
         tooling=["openjdk", "javac"]),
-    "jenkins-basic.md": dict(
-        title="Jenkins",
-        tags=["ci", "jenkins"],
-        tooling=["jenkins", "docker"]),
-    "jenkins-pipeline-execution.md": dict(
-        title="Jenkins pipelines",
-        tags=["ci", "jenkins", "groovy"],
-        tooling=["jenkins", "groovy"]),
-    "jenkinsfile-example.md": dict(
-        title="Jenkinsfile example",
-        tags=["ci", "jenkins", "groovy"],
-        tooling=["jenkins"]),
     "linux-basic.md": dict(
         title="Linux",
         tags=["linux", "systemd", "network"],
         tooling=["coreutils", "iproute2", "systemd", "nftables"]),
+    "jenkins.md": dict(
+        title="Jenkins",
+        tags=["ci", "jenkins", "groovy"],
+        tooling=["jenkins", "java", "docker"]),
+    "opensearch.md": dict(
+        title="OpenSearch",
+        tags=["search", "logs", "observability", "opensearch"],
+        tooling=["opensearch", "opensearch-dashboards", "logstash", "curl"]),
+    "windows.md": dict(
+        title="Windows",
+        tags=["windows", "security", "network"],
+        tooling=["powershell", "reg", "netsh", "sconfig"]),
     "pandas-examples.md": dict(
         title="pandas",
         tags=["python", "data", "pandas"],
@@ -82,18 +78,6 @@ SHEETS = {
         title="Offensive shell",
         tags=["security", "shell"],
         tooling=["curl", "wget", "ettercap"]),
-    "sql-basic.md": dict(
-        title="SQL",
-        tags=["database", "sql"],
-        tooling=["sql"]),
-    "windows-advanced.md": dict(
-        title="Windows — advanced",
-        tags=["windows", "network"],
-        tooling=["reg", "netsh"]),
-    "windows-hardening.md": dict(
-        title="Windows — hardening",
-        tags=["windows", "security"],
-        tooling=["windows"]),
     "yang-models-basic.md": dict(
         title="YANG data models",
         tags=["network", "yang", "nso"],

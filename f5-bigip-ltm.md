@@ -74,3 +74,13 @@ Static
 Dynamic
 -
 -
+
+## Status
+
+Unverified. The `tmsh` interface below is stable across major versions, but F5's
+management surface has moved toward the iControl REST API and declarative AS3
+templates, which is where automation belongs now. Treat these as interactive
+diagnostics rather than a configuration pipeline.
+
+The most useful read-only audits, in this order: `tmsh show sys version`,
+`tmsh list ltm virtual`, `tmsh show ltm pool`, `tmsh show sys tmm-traffic`.

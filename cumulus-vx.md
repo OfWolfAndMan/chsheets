@@ -44,3 +44,11 @@ net add ospf network <network>/<mask> area <area id>
 net add ospf passive-interface <interface>
 net add interface <interface> ospf area <area id> (Can only be used if network statement not set)
 ```
+
+## Status
+
+Unverified. Cumulus Linux is now NVIDIA Cumulus Linux, and the command surface changed
+with the release train: `net show ...` was replaced by `nv show ...` in current
+versions, and the `apt` repositories moved under NVIDIA's hosting. Read the commands
+below as the shape of the workflow, not as strings to paste, until this sheet is
+re-verified against a current VX image.
