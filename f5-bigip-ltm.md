@@ -1,4 +1,16 @@
-### Interface Schema
+---
+title: F5 BIG-IP LTM
+summary: F5 BIG-IP LTM — `tmsh` essentials
+tags: [network, vendor, load-balancing]
+tooling: [tmsh]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# F5 BIG-IP LTM
+
+## Interface Schema
 
 - Mgmt:
 - 1.1: External

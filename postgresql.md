@@ -1,3 +1,13 @@
+---
+title: PostgreSQL
+summary: PostgreSQL administration and `psql`
+tags: [database, sql, postgresql]
+tooling: [postgresql, psql]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
 # General
 
 ## Location of files

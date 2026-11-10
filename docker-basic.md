@@ -1,3 +1,15 @@
+---
+title: Docker
+summary: Docker and Compose basics
+tags: [containers, docker, compose]
+tooling: [docker, docker compose]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# Docker
+
 **Remove all docker containers created on your machine**
 
 ```bash
@@ -140,7 +152,7 @@ docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 ```
 
-### Docker File example
+## Docker File example
 
 **Base image**
 

@@ -1,4 +1,16 @@
-### Install Jenkins in a Docker container
+---
+title: Jenkins
+summary: Jenkins install and administration
+tags: [ci, jenkins]
+tooling: [jenkins, docker]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# Jenkins
+
+## Install Jenkins in a Docker container
 
 ```shell
 docker run \
@@ -21,7 +33,7 @@ cat /var/jenkins_home/secrets/initialAdminPassword
 
 ***
 
-# TERMINOLOGY
+## TERMINOLOGY
 
 Master:
 
@@ -53,9 +65,9 @@ Node Labels:
 
 ***
 
-# SIMPLE PIPELINE EXAMPLE
+## SIMPLE PIPELINE EXAMPLE
 
-## Jenkins DSL modeled after the Groovy framework
+### Jenkins DSL modeled after the Groovy framework
 
 ```groovy
 node ('worker1') {
@@ -80,7 +92,7 @@ stage('Build') {
 - stage: Groups together individual settings, DSL commands, and logic
 - steps: NOT Groovy commands.
 
-### Example of a parallel structure to designate mappings
+#### Example of a parallel structure to designate mappings
 
 ```groovy
 parallel (
@@ -95,7 +107,7 @@ parallel (
 
 ***
 
-# DECLARATIVE PIPELINE STRUCTURE
+## DECLARATIVE PIPELINE STRUCTURE
 
 ```text
 +*****************************************************+
@@ -158,7 +170,7 @@ parallel (
 ***
 ```
 
-# ENVIRONMENT VARIABLES
+## ENVIRONMENT VARIABLES
 
 - $BUILD_NUMBER
 - $NODE_NAME
@@ -193,11 +205,11 @@ parallel (
 +**********************************************************************************+
 ```
 
-# PLUGINS
+## PLUGINS
 
-## Build Pipeline
+### Build Pipeline
 
-### Used to visualize pipeline in Jenkins
+#### Used to visualize pipeline in Jenkins
 
 ```text
 - Blue: Job hasn't run yet
@@ -206,7 +218,7 @@ parallel (
 - Red: Job failed
 ```
 
-### Setting up the Slack API
+#### Setting up the Slack API
 
 ```text
 - In Slack, 

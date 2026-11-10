@@ -1,10 +1,22 @@
+---
+title: Windows — hardening
+summary: Windows client hardening checklist
+tags: [windows, security]
+tooling: [windows]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# Windows — hardening
+
 """ A set of features for hardening a windows 10 box.
     A separate hardening guide for Windows server
     2012/2016 will be provided in the file 'winserver
     hardening'
 """
 
-### TOOLS ###
+## TOOLS
 
 - Keepass: A historically secure password manager
   <https://keepass.info/>

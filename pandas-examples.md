@@ -1,4 +1,16 @@
-### Add Pandas
+---
+title: pandas
+summary: pandas recipes
+tags: [python, data, pandas]
+tooling: [python, pandas]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# pandas
+
+## Add Pandas
 
 ```python
 import pandas as pd

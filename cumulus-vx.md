@@ -1,4 +1,16 @@
-### Show interfaces
+---
+title: Cumulus VX / NVIDIA Cumulus Linux
+summary: Cumulus VX / NVIDIA Cumulus Linux lab commands
+tags: [linux, network, vendor]
+tooling: [cumulus vx, cl-commands]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# Cumulus VX / NVIDIA Cumulus Linux
+
+## Show interfaces
 
 ```shell
 net show interface

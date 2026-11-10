@@ -1,3 +1,15 @@
+---
+title: Jenkinsfile example
+summary: A worked Jenkinsfile
+tags: [ci, jenkins, groovy]
+tooling: [jenkins]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# Jenkinsfile example
+
 ```groovy
 pipeline {
     agent any

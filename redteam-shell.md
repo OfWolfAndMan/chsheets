@@ -1,3 +1,15 @@
+---
+title: Offensive shell
+summary: Offensive shell one-liners
+tags: [security, shell]
+tooling: [curl, wget, ettercap]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# Offensive shell
+
 ## Get public ip address
 
 ### Less Detail

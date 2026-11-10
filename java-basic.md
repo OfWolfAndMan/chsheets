@@ -1,3 +1,15 @@
+---
+title: Java
+summary: Java language basics
+tags: [language, java]
+tooling: [openjdk, javac]
+verified_on: null
+verified_env: null
+status: unverified
+---
+
+# Java
+
 ## BASICS
 
 ### Define a integer
