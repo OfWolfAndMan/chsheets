@@ -138,7 +138,7 @@ docker rm $(docker ps -a -q)
 
 ```
 FROM python:`<Python version>`
-MAINTAINER John Smith `<john.smith4502@gmail.com>`
+MAINTAINER Example Maintainer `<dev@example.com>`
 
 ENV INSTALL_PATH /`<install path name>`
 ```

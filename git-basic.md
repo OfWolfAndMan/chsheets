@@ -175,7 +175,7 @@ git config --list
 
 ```
 git config --global user.name "Username"
-git config --global user.email "email@email.com"
+git config --global user.email "user@example.com"
 git remote set-url origin git@github.com:`<username>`/`<repo>`
 ```
 

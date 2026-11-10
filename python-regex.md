@@ -4,7 +4,7 @@
 	from netmiko import ConnectHandler
 	import getpass
 
-	net_connect = ConnectHandler(device_type = device, ip = ip_address, username = username, password = password)
+	net_connect = ConnectHandler(device_type = device, ip = ip_address, username = username, password = getpass.getpass())
 	output = net_connect.send_command(commands) 
 	try:
 		output = re.search(r"(.+?) +(.+?) +(\d+) +(.+ \d+?) +(.+) +(\d+?) +(.)",variable)
